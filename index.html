@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Resumen y práctica para la PC oral de Estrategias Gerenciales: 5 temas, 91 preguntas probables, tarjetas de repaso y simulacro.">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Repaso de Estrategias Gerenciales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna de estudio (~68ch) con barra de temas fija; cada tema = resumen + matrices dibujadas + preguntas probables; simulador al final. */
+:root{
+  --paper:#F4F6FA; --surface:#FFFFFF; --ink:#17203B; --muted:#56607A; --line:#D9DEE9;
+  --accent:#2944C4; --accent-ink:#FFFFFF; --mark:#FFE36A; --mark-ink:#17203B;
+  --ok:#1D7F55; --warn:#A8520D;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  --tint:color-mix(in srgb, var(--accent) 9%, var(--surface));
+  --tint2:color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E1220; --surface:#161B2B; --ink:#E7EAF3; --muted:#9BA4BA; --line:#2A3149;
+  --accent:#8FA3FF; --accent-ink:#0E1220; --mark:rgba(255,214,64,.30); --mark-ink:#F5F1DC;
+  --ok:#4FC28B; --warn:#F2A55E; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0E1220; --surface:#161B2B; --ink:#E7EAF3; --muted:#9BA4BA; --line:#2A3149;
+  --accent:#8FA3FF; --accent-ink:#0E1220; --mark:rgba(255,214,64,.30); --mark-ink:#F5F1DC;
+  --ok:#4FC28B; --warn:#F2A55E; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,6vw,2.9rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.55rem,4.4vw,2rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:600;margin-top:.4rem}
+p{margin:0}
+mark{background:linear-gradient(transparent 12%,var(--mark) 12%,var(--mark) 88%,transparent 88%);color:var(--mark-ink);padding:0 .15em;border-radius:2px}
+.mono{font-family:var(--f-mono);font-size:.92em}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* Cabecera */
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{padding-block:2.2rem 1.6rem;display:grid;gap:1rem}
+.rules{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.25rem .75rem;font-size:.9rem}
+.chip b{font-family:var(--f-display)}
+.lead{color:var(--muted);max-width:62ch}
+
+/* Nav fija */
+nav.topics{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.topics .wrap{display:flex;gap:.35rem;overflow-x:auto;padding-block:.55rem;scrollbar-width:none}
+nav.topics .wrap::-webkit-scrollbar{display:none}
+nav.topics a{flex:none;text-decoration:none;color:var(--ink);font-size:.9rem;padding:.35rem .7rem;border-radius:8px;border:1px solid transparent;white-space:nowrap}
+nav.topics a:hover{background:var(--tint)}
+nav.topics a.sim{background:var(--accent);color:var(--accent-ink);font-weight:700}
+nav.topics a .n{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin-right:.3rem}
+nav.topics a.sim .n{color:inherit;opacity:.8}
+
+main section{scroll-margin-top:4rem;padding-block:2.6rem;border-bottom:1px solid var(--line)}
+main section .wrap{display:grid;gap:1.15rem}
+.thesis{font-size:1.12rem;border-left:3px solid var(--accent);padding-left:.9rem}
+ul,ol{margin:0;padding-left:1.25rem;display:grid;gap:.3rem}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;display:grid;gap:.6rem;min-width:0}
+.box h3{margin:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem}
+.ex{font-size:.95rem;color:var(--muted)}
+.ex b{color:var(--ink)}
+.note{font-size:.9rem;color:var(--muted)}
+.risk{color:var(--warn);font-weight:700}
+
+/* Matrices 2x2 */
+.matrix{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto auto auto auto;gap:4px;font-size:.92rem}
+.matrix .ax{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;padding:.2rem}
+.matrix .ax.v{writing-mode:vertical-rl;transform:rotate(180deg)}
+.matrix .ttl{grid-column:2 / 4;text-align:center}
+.matrix .cell{background:var(--tint);border-radius:6px;padding:.7rem .75rem;display:grid;gap:.2rem;align-content:start;min-width:0}
+.matrix .cell strong{font-family:var(--f-display);font-size:1.02rem}
+.matrix .cell span{font-size:.86rem;color:var(--muted)}
+.matrix .cell.hi{background:var(--tint2)}
+.matrix .yl{grid-column:1;grid-row:2 / 4}
+.matrix .bt{grid-column:2 / 4}
+.mx-wrap{overflow-x:auto}
+.matrix .lab{font-size:.78rem;color:var(--muted);text-align:center}
+.matrix .lab.side{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg)}
+.hybrid{justify-self:center;margin-top:.4rem;font-size:.9rem;background:var(--surface);border:1px dashed var(--accent);border-radius:999px;padding:.3rem .8rem}
+
+/* Tablas */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:30rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--tint)}
+tr:last-child td{border-bottom:none}
+td.pct{font-family:var(--f-mono);white-space:nowrap}
+
+/* Fórmula */
+.formula{font-family:var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.7rem .9rem;overflow-x:auto;font-size:.92rem;line-height:1.8}
+
+/* Espectro de modos de entrada */
+.spectrum{display:grid;gap:.4rem}
+.spectrum .row{display:grid;grid-template-columns:9.5rem 1fr;gap:.7rem;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.55rem .75rem}
+.spectrum .row strong{font-family:var(--f-display)}
+.meter{display:flex;gap:3px;margin-top:.25rem}
+.meter i{width:14px;height:6px;border-radius:2px;background:var(--line)}
+.meter i.on{background:var(--accent)}
+.arrow-lab{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+@media (max-width:30rem){.spectrum .row{grid-template-columns:1fr}}
+
+/* BSC */
+.persp{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.7rem}
+.persp .box{border-top:4px solid var(--accent)}
+.persp .q{font-style:italic;color:var(--muted);font-size:.95rem}
+.chain{display:grid;gap:0;justify-items:stretch}
+.chain .lvl{display:grid;grid-template-columns:8.5rem 1fr;gap:.6rem;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.5rem .75rem}
+.chain .lvl span:first-child{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.chain .up{text-align:center;color:var(--accent);font-size:1.1rem;line-height:1.3}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.6rem}
+.steps .box{gap:.35rem}
+.steps ol{font-size:.9rem}
+
+/* Preguntas probables */
+.qa{display:grid;gap:.45rem}
+.qa details{background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.qa summary{cursor:pointer;padding:.65rem .85rem;font-weight:700;list-style:none;display:flex;gap:.6rem;align-items:flex-start}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"+";font-family:var(--f-mono);color:var(--accent);flex:none;width:1ch}
+.qa details[open] summary::before{content:"−"}
+.qa .ans{padding:0 .85rem .85rem 2.2rem;color:var(--ink);font-size:.98rem}
+.qa .st{margin-left:auto;flex:none;font-size:.72rem;font-weight:700;border-radius:999px;padding:.05rem .5rem;align-self:center}
+.st.ok{color:var(--ok);border:1px solid var(--ok)}
+.st.rev{color:var(--warn);border:1px solid var(--warn)}
+
+/* Método de respuesta */
+.method{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:.5rem;counter-reset:m}
+.method div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.6rem .7rem;font-size:.92rem;counter-increment:m}
+.method div::before{content:counter(m);font-family:var(--f-display);font-weight:800;color:var(--accent);font-size:1.3rem;display:block;line-height:1}
+
+/* Simulador */
+#simulador{background:var(--surface)}
+.sim-controls{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.tog{display:inline-flex;align-items:center;gap:.35rem;font-size:.9rem;border:1px solid var(--line);border-radius:999px;padding:.25rem .7rem;cursor:pointer;background:var(--paper)}
+.tog input{accent-color:var(--accent)}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:.5rem .9rem}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+button.okb{color:var(--ok);border-color:var(--ok)}
+button.revb{color:var(--warn);border-color:var(--warn)}
+button[aria-pressed="true"].okb{background:var(--ok);color:var(--surface)}
+button[aria-pressed="true"].revb{background:var(--warn);color:var(--surface)}
+.cards{display:grid;gap:.8rem}
+.card{border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;display:grid;gap:.7rem;background:var(--paper)}
+.card .tag{font-size:.76rem;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700}
+.card .qq{font-family:var(--f-display);font-size:1.22rem;font-weight:600;line-height:1.3}
+.card .aa{border-top:1px dashed var(--line);padding-top:.7rem}
+.card .acts{display:flex;flex-wrap:wrap;gap:.45rem}
+.progress{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.86rem}
+.progress span{border:1px solid var(--line);border-radius:6px;padding:.15rem .5rem;font-variant-numeric:tabular-nums}
+.timer{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.timer.end{color:var(--warn);font-weight:700}
+button:disabled{opacity:.45;cursor:not-allowed}
+
+/* Guía rápida de uso */
+.guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr));gap:.5rem}
+.guide a{display:flex;gap:.75rem;align-items:flex-start;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.8rem .9rem}
+.guide a:hover{border-color:var(--accent)}
+.guide b{font-family:var(--f-display);font-weight:800;font-size:1.6rem;line-height:1;color:var(--accent);flex:none}
+.guide span{font-size:.93rem;color:var(--muted)}
+.guide strong{display:block;font-size:1.02rem;color:var(--ink)}
+nav.topics .sep{flex:none;width:1px;background:var(--line);margin:.2rem .2rem}
+nav.topics a.sim2{border-color:var(--accent);color:var(--accent);font-weight:700}
+
+/* Tarjetas de repaso */
+#repasar{background:var(--surface)}
+.segs{display:flex;flex-wrap:wrap;gap:.4rem}
+.seg{position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:inline-flex;gap:.4rem;align-items:center;border:1px solid var(--line);border-radius:999px;padding:.45rem .85rem;font-size:.93rem;cursor:pointer;background:var(--paper)}
+.seg small{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+.seg input:checked + span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.seg input:checked + span small{color:inherit;opacity:.85}
+.seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:2px}
+.fc-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;align-items:center}
+.stats{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.88rem}
+.stats span{border-radius:999px;padding:.15rem .65rem;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.stats .s-ok{color:var(--ok);border-color:var(--ok)}
+.stats .s-rev{color:var(--warn);border-color:var(--warn)}
+.bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+.flash{border:2px solid var(--line);border-radius:14px;background:var(--paper);padding:1.2rem 1.2rem 1.1rem;min-height:13rem;display:grid;gap:.8rem;align-content:start;cursor:pointer}
+.flash.shown{cursor:default;border-color:var(--accent)}
+.flash.static{cursor:default}
+.flash .tag{font-size:.76rem;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700}
+.flash .qq{font-family:var(--f-display);font-size:clamp(1.2rem,3.6vw,1.5rem);font-weight:600;line-height:1.3}
+.flash .hint{color:var(--muted);font-size:.92rem;border:1px dashed var(--line);border-radius:8px;padding:.5rem .7rem;justify-self:start}
+.flash .aa{border-top:1px dashed var(--line);padding-top:.8rem}
+.fc-actions{display:grid;grid-template-columns:1fr 2fr 1fr;gap:.5rem}
+.fc-actions.rate{grid-template-columns:1fr 1fr}
+.fc-actions.one{grid-template-columns:1fr}
+.fc-actions button{padding:.85rem .6rem;font-size:1rem;border-radius:10px}
+button.big-rev{background:color-mix(in srgb,var(--warn) 12%,var(--surface));color:var(--warn);border-color:var(--warn);font-weight:700}
+button.big-ok{background:var(--ok);color:var(--surface);border-color:var(--ok);font-weight:700}
+.kbd{display:none;font-size:.84rem;color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.kbd{display:block}}
+kbd{font-family:var(--f-mono);font-size:.78rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .3rem;background:var(--paper);color:var(--ink)}
+button.practice{justify-self:start;color:var(--accent);border-color:var(--accent);font-weight:700;margin-top:.3rem}
+footer{padding-block:2rem 3rem;color:var(--muted);font-size:.88rem}
+footer .wrap{display:grid;gap:.4rem}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="eyebrow">USIL · Estrategias Gerenciales · PC oral</span>
+    <h1>Repaso de Estrategias Gerenciales</h1>
+    <p class="lead">Resumen de las sesiones 5 a 9 con lo que pidió la profesora. Cada tema trae lo esencial, las matrices que conviene saber dibujar de memoria y preguntas probables con una respuesta modelo para decir en voz alta.</p>
+    <div class="rules">
+      <span class="chip"><b>5</b> temas evaluados</span>
+      <span class="chip"><b>2</b> preguntas por estudiante</span>
+      <span class="chip">De <b>cualquier</b> tema, no uno por grupo</span>
+      <span class="chip"><b data-total>91</b> preguntas para practicar</span>
+    </div>
+    <div class="guide" aria-label="Cómo usar esta página">
+      <a href="#negocio"><b>1</b><span><strong>Lee el resumen</strong>Los 5 temas con sus matrices y ejemplos.</span></a>
+      <a href="#repasar"><b>2</b><span><strong>Repasa con tarjetas</strong><span data-total>91</span> preguntas. Marca las que sabes y las que no.</span></a>
+      <a href="#simulador"><b>3</b><span><strong>Haz el simulacro</strong>2 preguntas al azar y 2 minutos, como en el oral.</span></a>
+    </div>
+    <div class="box">
+      <h3>Cómo responder cada pregunta (1 a 2 minutos)</h3>
+      <div class="method">
+        <div><b>Define</b> el concepto en una frase.</div>
+        <div><b>Clasifica</b>: tipos, elementos o la matriz.</div>
+        <div><b>Ejemplo</b>, mejor si es peruano o de la clase.</div>
+        <div><b>Cierra</b> con un riesgo o una conclusión.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="topics" aria-label="Temas">
+  <div class="wrap">
+    <a href="#repasar" class="sim"><span class="n">▶</span>Repasar</a>
+    <a href="#simulador" class="sim2">Simulacro</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="#negocio"><span class="n">1</span>Nivel de negocio</a>
+    <a href="#corporativa"><span class="n">2</span>Corporativas</a>
+    <a href="#fusiones"><span class="n">3</span>Fusiones y adquisiciones</a>
+    <a href="#internacional"><span class="n">4</span>Internacional</a>
+    <a href="#bsc"><span class="n">5</span>Balanced Scorecard</a>
+  </div>
+</nav>
+
+<main>
+<!-- ============ 1. NEGOCIO ============ -->
+<section id="negocio">
+  <div class="wrap">
+    <span class="eyebrow">Tema 1 · Sesión 5 · Hill, Jones y Schilling cap. 5</span>
+    <h2>Estrategias a nivel de negocio</h2>
+    <p class="thesis">Buscan <mark>mejorar la posición competitiva</mark> de los productos o servicios de la empresa dentro de una industria o segmento específico. Responden a la pregunta: <b>¿cómo competimos?</b></p>
+
+    <div class="box">
+      <h3>Niveles de estrategia</h3>
+      <p><b>Empresa grande:</b> corporativo → negocio → funcional → operacional. <b>Empresa pequeña:</b> negocio → funcional → operacional (no tiene nivel corporativo).</p>
+      <p class="ex">Ejemplo de clase: un grupo con negocios como <b>Alicorp, Ransa, Primax, Palmas y Caña Brava</b>. El corporativo decide en qué negocios estar; cada negocio decide cómo compite en su mercado; las áreas funcionales ejecutan.</p>
+    </div>
+
+    <h3>Estrategias genéricas de Porter</h3>
+    <div class="mx-wrap">
+      <div class="matrix" style="min-width:19rem">
+        <div></div><div class="ax ttl">Ventaja competitiva</div>
+        <div></div><div class="lab">Costos</div><div class="lab">Singularidad</div>
+        <div class="lab side">Meta amplia</div>
+        <div class="cell"><strong>Liderazgo en costos</strong><span>Menor costo que los rivales en todo el mercado</span></div>
+        <div class="cell"><strong>Diferenciación</strong><span>Atributos únicos por los que el cliente paga más</span></div>
+        <div class="lab side">Meta estrecha</div>
+        <div class="cell hi"><strong>Enfoque en costos</strong><span>Bajo costo para un nicho</span></div>
+        <div class="cell hi"><strong>Enfoque en diferenciación</strong><span>Producto único para un nicho</span></div>
+      </div>
+    </div>
+    <p class="hybrid">Al centro: <b>Proveedor de mejor costo</b> (híbrido de costos + diferenciación)</p>
+
+    <div class="box">
+      <h3>Creación de valor por unidad</h3>
+      <div class="formula">U = utilidad (valor) para el cliente · P = precio · C = costo unitario<br>U − P = excedente del consumidor<br>P − C = margen de utilidad<br>U − C = valor creado</div>
+      <p>Hay ventaja competitiva cuando la empresa crea más valor (U − C) que sus rivales: <b>bajando C</b> (liderazgo en costos) o <b>subiendo U</b> (diferenciación).</p>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Liderazgo en costos</h3>
+        <p>Alcanzar el <mark>menor costo posible frente a los rivales</mark>, sin ignorar la diferenciación: instalaciones de escala eficiente, costos ajustados y controles generales.</p>
+        <p><b>Funciona cuando:</b> hay muchos compradores sensibles al precio, pocas formas de diferenciar, a los clientes no les importa la marca, o los compradores tienen mucho poder de negociación.</p>
+        <p><b>Dos formas de lograrlo:</b> (1) hacer las actividades de la cadena de valor con más eficiencia que los rivales; (2) reconfigurar la cadena para eliminar actividades que generan costo.</p>
+        <p><b>Actividades clave:</b> compras, logística interna, operaciones, infraestructura, RR.HH. y desarrollo tecnológico.</p>
+        <p><span class="risk">Riesgos:</span> obsolescencia de equipos; olvidar las necesidades del cliente.</p>
+      </div>
+      <div class="box">
+        <h3>Diferenciación</h3>
+        <p>Ofrecer <mark>atributos únicos que una amplia gama de compradores valora</mark> y por los que vale la pena pagar.</p>
+        <p><b>Logra:</b> precio premium, más ventas unitarias y lealtad a la marca.</p>
+        <p><b>Impulsores de valor (Porter):</b> control de calidad, características y rendimiento del producto, servicio al cliente, I+D, tecnología e innovación, calidad de insumos, habilidad y experiencia del personal, ventas y marketing.</p>
+        <p><span class="risk">Peligros:</span> atributos fáciles de copiar; el cliente ve poco valor en ellos; gastar de más y erosionar la rentabilidad.</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>Formas de diferenciarse (ejemplos de clase)</h3>
+      <div class="tbl"><table>
+        <tr><th>Fuente</th><th>Ejemplos</th></tr>
+        <tr><td>Sabor único</td><td>Red Bull, Listerine</td></tr>
+        <tr><td>Servicio superior</td><td>Ritz-Carlton, Nordstrom, Wong</td></tr>
+        <tr><td>Disponibilidad de repuestos</td><td>Caterpillar, Toyota</td></tr>
+        <tr><td>Diseño de ingeniería y rendimiento</td><td>Mercedes, BMW</td></tr>
+        <tr><td>Lujo y prestigio</td><td>Rolex, Gucci</td></tr>
+        <tr><td>Confiabilidad del producto</td><td>Whirlpool, Bosch, Apple</td></tr>
+        <tr><td>Calidad de manufactura</td><td>Michelin, Gaston's Restaurants</td></tr>
+        <tr><td>Liderazgo tecnológico</td><td>Apple</td></tr>
+      </table></div>
+      <p class="note">Diferenciación en la cadena de valor: sistemas de información para entender preferencias, capacitación superior, investigación, compra de insumos de la más alta calidad, respuesta rápida a especificaciones del cliente, entregas rápidas, crédito y relaciones personales con compradores, repuestos en campo.</p>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Enfoque</h3>
+        <p>Acciones integradas para atender las necesidades de <mark>un segmento particular</mark> usando las competencias básicas: un grupo de compradores (jóvenes), un segmento de la línea de productos (pintores profesionales) o un mercado geográfico.</p>
+        <p><b>Es atractiva cuando:</b> el nicho es grande, rentable y con crecimiento; los líderes no compiten ahí; a los competidores multisegmento les cuesta atenderlo; hay muchos nichos; hay pocos rivales.</p>
+        <p><span class="risk">Riesgos:</span> un competidor de toda la industria entra al nicho; otro se enfoca aún más estrecho y te "desenfoca"; cambian las preferencias y los clientes migran.</p>
+      </div>
+      <div class="box">
+        <h3>Proveedor de mejor costo</h3>
+        <p>Híbrido: dar <mark>atributos más deseables</mark> (calidad, servicio, rendimiento) <mark>a un precio menor</mark> que los rivales.</p>
+        <p><b>Requiere flexibilidad estratégica:</b> sistemas de fabricación flexibles, redes de información y Gestión de Calidad Total (TQM).</p>
+        <p><span class="risk">Riesgos:</span> el diferencial de precio con el líder en costos se hace muy grande; la diferenciación deja de valer; imitación y falsificaciones; quedar <b>"atascado en el medio"</b>: sin ventaja distinguible y sin poder enfrentar las 5 fuerzas.</p>
+      </div>
+    </div>
+
+    <h3>Preguntas probables</h3>
+    <div class="qa" data-topic="negocio"></div>
+  </div>
+</section>
+
+<!-- ============ 2. CORPORATIVAS ============ -->
+<section id="corporativa">
+  <div class="wrap">
+    <span class="eyebrow">Tema 2 · Sesión 6 · Hitt cap. 6 · Hill y Jones cap. 10</span>
+    <h2>Estrategias corporativas: diversificación</h2>
+    <p class="thesis">La estrategia corporativa especifica las acciones para obtener ventaja competitiva al <mark>seleccionar y administrar un grupo de negocios</mark> que compiten en distintos mercados. Responde: <b>¿cuál es la escala y el alcance apropiados de la corporación?</b></p>
+
+    <div class="two">
+      <div class="box">
+        <h3>Dos preguntas centrales</h3>
+        <ol><li>¿En qué negocios debería estar la corporación?</li><li>¿Cómo debería gestionarse el grupo de negocios?</li></ol>
+      </div>
+      <div class="box">
+        <h3>Objetivo: sinergia</h3>
+        <p>Crear valor por encima del que tendrían los negocios sin la estrategia. El <mark>valor combinado debe ser mayor que la suma</mark> de los valores por separado ("2 + 2 = 5").</p>
+      </div>
+    </div>
+
+    <h3>Matriz de Ansoff (desarrollo empresarial)</h3>
+    <div class="mx-wrap">
+      <div class="matrix" style="min-width:19rem">
+        <div></div><div class="ax ttl">Producto</div>
+        <div></div><div class="lab">Actual</div><div class="lab">Nuevo</div>
+        <div class="lab side">Mercado actual</div>
+        <div class="cell"><strong>Penetración de mercado</strong><span>Riesgo bajo · vender más de lo mismo a los mismos clientes</span></div>
+        <div class="cell"><strong>Desarrollo de producto</strong><span>Riesgo medio · productos nuevos o modificados, con capacidades actuales o nuevas</span></div>
+        <div class="lab side">Mercado nuevo</div>
+        <div class="cell"><strong>Desarrollo de mercado</strong><span>Riesgo moderado · nuevos segmentos, nuevos territorios o nuevos usos</span></div>
+        <div class="cell hi"><strong>Diversificación</strong><span>Riesgo alto · producto nuevo para mercado nuevo (nuevas UEN)</span></div>
+      </div>
+    </div>
+    <p class="ex"><b>Penetración</b>: cambiar precios, agregar características menores, cambiar empaque, destacar usos alternativos (Coca-Cola asociada a la Navidad). <b>Desarrollo de mercado</b>: pañales para adultos (nuevo segmento), motos usadas para transportar mercadería (nueva aplicación). <b>Diversificación</b>: McDonald's; Toyota fabricando baterías para autos eléctricos.</p>
+
+    <div class="box">
+      <h3>Diversificación</h3>
+      <p>Entrar a un <mark>nuevo mercado o industria</mark> donde la organización no está actualmente. Antes de diversificar hay que responder: (1) ¿la industria nueva es más atractiva que el negocio actual? (2) ¿podemos crear ventaja competitiva ahí, es decir, qué sinergias hay entre el negocio principal y el nuevo?</p>
+    </div>
+
+    <h3>Niveles y tipos de diversificación (Rumelt)</h3>
+    <div class="tbl"><table>
+      <tr><th>Nivel</th><th>Tipo</th><th>Ingresos del negocio dominante</th><th>Vínculos</th></tr>
+      <tr><td rowspan="2">Bajo</td><td>Negocio único</td><td class="pct">≥ 95%</td><td>Un solo negocio</td></tr>
+      <tr><td>Negocio dominante</td><td class="pct">70% – 95%</td><td>Un negocio principal y otro pequeño</td></tr>
+      <tr><td rowspan="2">Moderado a alto</td><td>Relacionada restringida (concentrada)</td><td class="pct">&lt; 70%</td><td>Todos comparten producto, tecnología y distribución</td></tr>
+      <tr><td>Relacionada vinculada (mixta)</td><td class="pct">&lt; 70%</td><td>Vínculos limitados entre negocios</td></tr>
+      <tr><td>Muy alto</td><td>No relacionada</td><td class="pct">&lt; 70%</td><td>Sin vínculos comunes</td></tr>
+    </table></div>
+    <p class="ex">Ejemplos de la clase: bajo nivel, <b>Cementos Pacasmayo</b> o <b>REP</b>; moderado a alto, <b>Backus</b> (Cusqueña, Cristal, Pilsen) y <b>Tampico</b>; muy alto, <b>Grupo Romero</b>. La restringida comparte recursos y actividades; la vinculada comparte sobre todo conocimiento y competencias.</p>
+
+    <h3>¿Cómo crea valor? Relaciones operativas y corporativas</h3>
+    <div class="mx-wrap">
+      <div class="matrix" style="min-width:19rem">
+        <div></div><div class="ax ttl">Relación corporativa: transferir competencias centrales</div>
+        <div></div><div class="lab">Poca</div><div class="lab">Mucha</div>
+        <div class="lab side">Operativa alta</div>
+        <div class="cell"><strong>Relacionada restringida</strong><span>Actividades compartidas, integración vertical</span></div>
+        <div class="cell hi"><strong>Ambas a la vez</strong><span>Raro y difícil de imitar</span></div>
+        <div class="lab side">Operativa baja</div>
+        <div class="cell"><strong>No relacionada</strong><span>Economías financieras</span></div>
+        <div class="cell"><strong>Relacionada vinculada</strong><span>Economías de alcance por transferir competencias</span></div>
+      </div>
+    </div>
+
+    <div class="tbl"><table>
+      <tr><th>Razón para diversificar</th><th>Tipo</th><th>Cómo crea valor</th></tr>
+      <tr><td><b>Economías de alcance</b></td><td>Relacionada</td><td>Ahorros al <b>compartir actividades</b> o <b>transferir competencias centrales</b> (conocimiento técnico y administrativo, experiencia, personal clave).</td></tr>
+      <tr><td><b>Poder de mercado</b></td><td>Relacionada</td><td>Vender por encima de la competencia o bajar costos. Vía <b>competencia en puntos múltiples</b> (bloquear rivales en varios mercados) e <b>integración vertical</b>: hacia atrás (producir insumos) o hacia adelante (controlar la distribución).</td></tr>
+      <tr><td><b>Economías financieras</b></td><td>No relacionada</td><td>Mejor asignación de recursos financieros: <b>asignación eficiente del capital interno</b> (portafolio con distintos perfiles de riesgo) y <b>reestructuración</b> de negocios.</td></tr>
+      <tr><td>Razones neutrales</td><td>No afectan el valor</td><td>Leyes antimonopolio y tributarias, bajo desempeño, futuros inciertos (flujos de caja en etapa de madurez), reducción de riesgos.</td></tr>
+    </table></div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Diversificación y desempeño</h3>
+        <p>Curva en forma de <mark>U invertida</mark>: el desempeño sube del negocio dominante a la diversificación relacionada (punto más alto) y cae en la no relacionada.</p>
+        <p class="note">Sinergia: el valor que crean las unidades operando juntas supera al que crean por separado.</p>
+      </div>
+      <div class="box">
+        <h3>Rol de los gerentes</h3>
+        <p>El éxito depende de la <mark>experiencia gerencial</mark> en gestionar la diversificación. Deben decidir cómo coordinar para lograr sinergias, cómo asignar recursos, qué funciones centralizar o descentralizar y cómo compensar a los gerentes de cada UEN para alinear metas.</p>
+      </div>
+    </div>
+
+    <h3>Matriz BCG</h3>
+    <div class="mx-wrap">
+      <div class="matrix" style="min-width:19rem">
+        <div></div><div class="ax ttl">Participación de mercado</div>
+        <div></div><div class="lab">Alta</div><div class="lab">Baja</div>
+        <div class="lab side">Crecimiento alto</div>
+        <div class="cell hi"><strong>Estrella</strong><span>Crecimiento. Gasta mucho para ganar cuota, pero la curva de experiencia baja sus costos.</span></div>
+        <div class="cell"><strong>Interrogante</strong><span>Mercado que crece, poca cuota. Requiere mucha inversión sin ventaja de costos.</span></div>
+        <div class="lab side">Crecimiento bajo</div>
+        <div class="cell hi"><strong>Vaca de efectivo</strong><span>Madurez. Genera fondos para financiar estrellas e interrogantes.</span></div>
+        <div class="cell"><strong>Perro</strong><span>Decadencia. La peor combinación: drena liquidez, tiempo y recursos.</span></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>Conclusiones de la sesión</h3>
+      <ul>
+        <li>El tamaño por sí solo no garantiza ventaja; la coordinación para lograr economías de escala y alcance tiene costos.</li>
+        <li>El tamaño trae problemas de comunicación y coordinación.</li>
+        <li>Diversificar mucho no es incompatible con un alto rendimiento.</li>
+        <li>El factor crítico es la experiencia gerencial al formular e implementar la estrategia corporativa.</li>
+      </ul>
+    </div>
+
+    <h3>Preguntas probables</h3>
+    <div class="qa" data-topic="corporativa"></div>
+  </div>
+</section>
+
+<!-- ============ 3. FUSIONES ============ -->
+<section id="fusiones">
+  <div class="wrap">
+    <span class="eyebrow">Tema 3 · Sesión 7 · Hitt cap. 7</span>
+    <h2>Fusiones y adquisiciones</h2>
+    <div class="two">
+      <div class="box"><h3>Adquisición</h3><p>Comprar una <mark>participación mayoritaria o el 100%</mark> de otra empresa, que pasa a ser subsidiaria. Puede ser compra de acciones o de activos.</p></div>
+      <div class="box"><h3>Fusión</h3><p>Dos o más empresas acuerdan <mark>combinar recursos y capacidades en una nueva organización común</mark>, en una base relativamente igualitaria. Ej.: Disney y Pixar.</p></div>
+      <div class="box"><h3>Adquisición hostil</h3><p>La empresa objetivo <mark>no solicitó</mark> la oferta del adquirente (takeover).</p></div>
+    </div>
+    <p class="ex">Datos de clase: el <b>60% de los CEOs</b> planea al menos una adquisición en 3 años (PwC). En el Perú 2023 hubo <b>105 operaciones</b> (+38.2% vs 2022), pero el valor cayó a <b>US$ 7,759.8 millones</b> (−30.98%) por la crisis política y económica (LexLatin).</p>
+
+    <div class="box">
+      <h3>¿Cuándo tiene sentido financiero?</h3>
+      <p>Cuando crea un <mark>valor presente positivo</mark>: el precio pagado (salida) es menor que los flujos futuros de la empresa adquirida más las sinergias (entrada).</p>
+      <div class="formula">Sinergia = V<sub>AB</sub> − (V<sub>A</sub> + V<sub>B</sub>)<br>Sinergia = Σ<sub>t=1..T</sub> ΔFC<sub>t</sub> / (1 + r)<sup>t</sup> &nbsp;&nbsp;(ΔFC = flujo de caja adicional anual)</div>
+      <p><b>Sinergias de costos:</b> eficiencia o escala, mejor gestión de costos, mejor calificación crediticia (financiamiento más barato), eliminación de costos de transacción (fusión vertical), reducción de personal. <b>Sinergias de ingresos:</b> usar los canales y distribuidores del otro, más variedad de oferta.</p>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Cómo se hace</h3>
+        <p>Se contratan asesores, porque las empresas no suelen tener la experiencia: <b>banco de inversión</b> (asesor financiero principal: modelo pro forma, transacciones comparables para el precio, estructura fiscal y contable, levantar capital), firma de abogados, consultora y firma de valuación.</p>
+        <p><b>Due diligence:</b> revisión rigurosa de la empresa objetivo (financiera, legal, laboral, tributaria, operativa, comercial), precedida de un <b>acuerdo de confidencialidad</b>.</p>
+      </div>
+      <div class="box">
+        <h3>Variables para decidir la compra</h3>
+        <p>Estados financieros y ROI del objetivo, reputación, cadena de suministro, posición de mercado y marca, perspectivas, deuda, clima laboral, aspectos legales, sinergias potenciales, crecimiento del mercado y, sobre todo, el <mark>precio</mark>.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <h3>7 razones para adquirir</h3>
+        <ol>
+          <li><b>Mayor poder de mercado</b>: <i>horizontal</i> (competidor de la misma industria), <i>vertical</i> (proveedor o distribuidor), <i>relacionada</i> (servidores + discos de almacenamiento).</li>
+          <li><b>Superar barreras de entrada</b>, incluidas las adquisiciones transfronterizas.</li>
+          <li><b>Menor costo y más velocidad</b> para lanzar productos.</li>
+          <li><b>Menor riesgo</b> que desarrollar productos internamente.</li>
+          <li><b>Mayor diversificación</b>: la vía más rápida para cambiar el portafolio.</li>
+          <li><b>Reconfigurar el alcance competitivo</b>: depender menos de un producto o mercado.</li>
+          <li><b>Aprender y desarrollar nuevas capacidades.</b></li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Problemas para el éxito</h3>
+        <ol>
+          <li><b>Dificultades de integración</b>: culturas, sistemas financieros y de control, relaciones laborales.</li>
+          <li><b>Evaluación incorrecta del objetivo</b>: no medir financiamiento, cultura, impuestos ni la integración del personal.</li>
+          <li><b>Deuda grande o extraordinaria</b>: daña el flujo de caja y la calificación crediticia.</li>
+          <li><b>No lograr la sinergia.</b></li>
+          <li><b>Diversificación exagerada</b>: descuidar el negocio core.</li>
+          <li><b>Gerentes demasiado enfocados</b> en adquirir.</li>
+          <li><b>Tamaño excesivo</b>: burocracia que reduce la eficiencia.</li>
+        </ol>
+      </div>
+    </div>
+
+    <h3>Atributos de las adquisiciones efectivas</h3>
+    <div class="tbl"><table>
+      <tr><th>Atributo</th><th>Resultado</th></tr>
+      <tr><td>La adquirida tiene recursos que complementan el negocio central</td><td>Alta probabilidad de sinergia y ventaja competitiva</td></tr>
+      <tr><td>La adquisición es amigable</td><td>Integración más rápida y precios más bajos</td></tr>
+      <tr><td>Proceso cuidadoso para elegir y evaluar la meta (due diligence)</td><td>Se compran empresas más complementarias y se evita pagar de más</td></tr>
+      <tr><td>El adquirente tiene holgura financiera</td><td>Financiamiento más fácil y barato</td></tr>
+      <tr><td>Deuda entre baja y moderada después de fusionar</td><td>Menor costo de financiamiento y menor riesgo</td></tr>
+      <tr><td>Énfasis sostenido en I+D e innovación</td><td>Ventaja competitiva de largo plazo</td></tr>
+      <tr><td>Maneja bien el cambio; es flexible y adaptable</td><td>Integración rápida que facilita la sinergia</td></tr>
+    </table></div>
+
+    <h3>Reestructuración</h3>
+    <p>Estrategia para <mark>cambiar el conjunto de negocios o la estructura financiera</mark> de la empresa.</p>
+    <div class="tbl"><table>
+      <tr><th>Alternativa</th><th>Qué es</th><th>Corto plazo</th><th>Largo plazo</th><th>Resultado</th></tr>
+      <tr><td><b>Downsizing</b></td><td>Reducir tamaño: despidos o cierre de divisiones</td><td>Menos costos laborales</td><td>Pérdida de capital humano</td><td class="risk">Bajo desempeño</td></tr>
+      <tr><td><b>Downscoping</b></td><td>Desinvertir, hacer spin-off o eliminar negocios no relacionados al core</td><td>Menos costos de deuda</td><td>Énfasis en controles estratégicos</td><td style="color:var(--ok);font-weight:700">Alto desempeño</td></tr>
+      <tr><td><b>Compra apalancada (LBO)</b></td><td>Un grupo pequeño de inversionistas compra con mucha deuda; la empresa se privatiza. Si la compran sus gerentes es <b>MBO</b></td><td>Altos costos de deuda</td><td>Riesgo alto</td><td style="color:var(--ok);font-weight:700">Alto desempeño</td></tr>
+    </table></div>
+    <p class="note"><b>Spin-off:</b> crear una empresa independiente con una división, vendiendo o distribuyendo acciones nuevas; se espera que valga más sola que dentro del grupo.</p>
+
+    <div class="box">
+      <h3>Casos de clase</h3>
+      <p><b>Pfizer + Allergan</b> (~US$ 150–160 mil millones): el mayor negocio farmacéutico. Motivo principal fiscal: estructurada "a la inversa" para tributar en Irlanda (12.5%) en vez de EE.UU. (15–39%). <span class="note">Dato extra: se canceló en 2016 por nuevas reglas de EE.UU. contra las "inversiones fiscales".</span></p>
+      <p><b>Wong y Cencosud:</b> antes de vender una empresa líder, rentable y en expansión, compara el precio ofrecido con el valor presente de sus flujos futuros y el riesgo de competir contra un gigante regional.</p>
+      <p><b>Twitter (Elon Musk, 2022, ~US$ 44 mil millones):</b> compra financiada en parte con deuda, parecida a un LBO; la empresa dejó de cotizar. Amenazas: alta deuda, salida de anunciantes, despidos masivos.</p>
+      <p class="note">Otras grandes operaciones: Microsoft–Activision Blizzard, Broadcom–VMware, Oracle–Cerner, AMD–Xilinx, Microsoft–Nuance, DSM–Firmenich.</p>
+    </div>
+
+    <h3>Preguntas probables</h3>
+    <div class="qa" data-topic="fusiones"></div>
+  </div>
+</section>
+
+<!-- ============ 4. INTERNACIONAL ============ -->
+<section id="internacional">
+  <div class="wrap">
+    <span class="eyebrow">Tema 4 · Sesión 8 · Hill cap. 8 · Hitt cap. 8</span>
+    <h2>Estrategias internacionales</h2>
+    <p class="thesis">Estrategia que la empresa usa para <mark>vender sus bienes y servicios fuera de su mercado interno</mark>.</p>
+
+    <div class="box">
+      <h3>El proceso completo (Hitt)</h3>
+      <p>Identificar oportunidades → explorar recursos y capacidades → elegir la estrategia internacional → elegir el modo de entrada → gestionar riesgos y problemas de administración → resultado: mejor desempeño, innovación y competitividad estratégica.</p>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Oportunidades</h3>
+        <ul>
+          <li><b>Mayor tamaño de mercado.</b></li>
+          <li><b>Rendimiento sobre la inversión</b>: recuperar grandes inversiones de capital e I+D.</li>
+          <li><b>Economías de escala y aprendizaje</b>: estandarizar y usar las mismas plantas.</li>
+          <li><b>Ventajas de ubicación</b>: mano de obra, energía y recursos más baratos.</li>
+          <li><b>Menor riesgo</b>: una base de mercados más amplia.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Diamante de Porter</h3>
+        <p>Determinantes de la ventaja de un país:</p>
+        <ul>
+          <li>Factores de producción</li>
+          <li>Condiciones de la demanda</li>
+          <li>Industrias relacionadas y de apoyo</li>
+          <li>Estrategia, estructura y rivalidad de las empresas</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Las 4 estrategias internacionales</h3>
+    <div class="mx-wrap">
+      <div class="matrix" style="min-width:19rem">
+        <div></div><div class="ax ttl">Necesidad de respuesta local</div>
+        <div></div><div class="lab">Poca</div><div class="lab">Mucha</div>
+        <div class="lab side">Integración global: mucha</div>
+        <div class="cell hi"><strong>Global</strong><span>Productos estandarizados; decide la matriz. Piensa global, actúa global.</span></div>
+        <div class="cell hi"><strong>Transnacional</strong><span>Eficiencia global y respuesta local a la vez. Piensa global, actúa local.</span></div>
+        <div class="lab side">Integración global: poca</div>
+        <div class="cell"><strong>Doméstica / internacional</strong><span>Replica el modelo de casa y exporta. El exterior es secundario.</span></div>
+        <div class="cell"><strong>Multinacional (multidoméstica)</strong><span>Descentraliza en la UEN de cada país; adapta. Piensa local, actúa local.</span></div>
+      </div>
+    </div>
+
+    <div class="tbl"><table>
+      <tr><th></th><th>Multinacional</th><th>Global</th><th>Transnacional</th></tr>
+      <tr><td>Productos</td><td>A la medida de cada país</td><td>Estandarizados</td><td>Base común con adaptaciones</td></tr>
+      <tr><td>Decisiones</td><td>Descentralizadas en la UEN de cada país</td><td>Centralizadas en la oficina central</td><td>Coordinación flexible</td></tr>
+      <tr><td>Busca</td><td>Respuesta local</td><td>Economías de escala</td><td>Ambas</td></tr>
+      <tr><td>Supuesto</td><td>Los mercados difieren por país</td><td>Los mercados son parecidos</td><td>Hay presión por costos y por personalizar</td></tr>
+      <tr><td>Contra</td><td>Menos eficiencia</td><td>Responde menos a lo local</td><td>Difícil de gestionar</td></tr>
+      <tr><td>Ejemplo</td><td>Empresas de consumo masivo que adaptan sabores por país</td><td>Productos iguales en todo el mundo</td><td><b>Toyota</b>, <b>IKEA</b> (90% de la línea idéntica, ajusta algunos muebles y los catálogos)</td></tr>
+    </table></div>
+
+    <div class="box">
+      <h3>Tendencias del entorno</h3>
+      <p><b>Desventaja de ser extranjero:</b> la sufre quien se concentra en lo global sin adaptarse a cada región. Se explica con <mark>4 distancias: cultural, administrativa, geográfica y económica</mark>. <b>Regionalización:</b> decidir si competir en todos los mercados o concentrarse en una o varias regiones.</p>
+    </div>
+
+    <h3>Modos de entrada</h3>
+    <div class="arrow-lab"><span>Menos compromiso y control</span><span>Más compromiso y control</span></div>
+    <div class="spectrum" id="modes"></div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Qué considerar para exportar</h3>
+        <p>Flete, aranceles, logística, normas sanitarias, documentos (certificado de origen, conocimiento de embarque), precio, riesgos legales, vida del producto, embalaje, marca, forma de pago, demanda, garantías y seguros.</p>
+      </div>
+      <div class="box">
+        <h3>Riesgos</h3>
+        <p><b>Políticos:</b> inestabilidad del gobierno, conflictos o cambios de reglas que ponen en riesgo las inversiones.</p>
+        <p><b>Económicos:</b> afectan la propiedad intelectual y la inversión directa; incluye el <mark>riesgo de tipo de cambio</mark>.</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>Datos para citar</h3>
+      <p class="ex">2024: <b>China</b> lideró las exportaciones mundiales (US$ 3.51 billones), luego <b>EE.UU.</b> (2.02) y <b>Alemania</b> (1.688). Perú 2024: exportaciones de <b>US$ 75,916 millones</b> (+12.4%) y superávit comercial de <b>US$ 23,821 millones</b> (BCRP). <b>Arándanos</b>: US$ 2,270 millones en 2024 (+35%); Perú es el primer exportador mundial.</p>
+      <p class="ex">Caso arándanos, etapas para exportar: detectar la demanda (contraestación con el hemisferio norte) → evaluar capacidades (clima, tecnología, variedades) → cumplir requisitos fitosanitarios y certificaciones → elegir mercados y modo de entrada → logística y cadena de frío → precio, forma de pago y seguros → ampliar a nuevos mercados.</p>
+      <p class="ex">Por qué importa a los países: expansión de mercados, ventajas comerciales, divisas y crecimiento del PIB.</p>
+    </div>
+
+    <h3>Preguntas probables</h3>
+    <div class="qa" data-topic="internacional"></div>
+  </div>
+</section>
+
+<!-- ============ 5. BSC ============ -->
+<section id="bsc">
+  <div class="wrap">
+    <span class="eyebrow">Tema 5 · Sesión 9 · Kaplan y Norton</span>
+    <h2>Balanced Scorecard (Cuadro de Mando Integral)</h2>
+    <p class="thesis">Marco integral que <mark>traduce la visión y la estrategia en un conjunto coherente de medidas de desempeño</mark>. Sirve para controlar la <b>ejecución</b> de la estrategia: no basta con fijar metas, hay que llegar a ellas.</p>
+
+    <div class="two">
+      <div class="box">
+        <h3>Por qué surge</h3>
+        <p>Los sistemas tradicionales miden solo <b>indicadores financieros</b>, que reflejan eventos pasados y solo dan resultados numéricos. <b>Caso Xerox:</b> era rentable, pero al mirar solo lo financiero ignoró aspectos del negocio como clientes, calidad y procesos.</p>
+      </div>
+      <div class="box">
+        <h3>Características</h3>
+        <ul>
+          <li>Solo se puede crear si ya existe una estrategia.</li>
+          <li><b>No crea la estrategia</b>: es su "contenedor".</li>
+          <li>La estrategia se ordena en un <b>mapa estratégico</b> y se controla con el <b>cuadro de mando</b>.</li>
+        </ul>
+        <p class="note">Secuencia: situación actual → visión y misión → estrategia → BSC → sistema de gestión. "Para el que no sabe adónde va, no hay viento favorable" (Séneca).</p>
+      </div>
+    </div>
+
+    <h3>Las 4 perspectivas</h3>
+    <div class="persp">
+      <div class="box"><h3>Financiera</h3><p class="q">Para tener éxito financiero, ¿cómo debemos aparecer ante los accionistas?</p><p class="ex">ROE, EVA, rentabilidad por proyecto, punto de equilibrio, flujo de fondos, ingresos por empleado.</p></div>
+      <div class="box"><h3>Clientes</h3><p class="q">Para lograr la visión, ¿cómo debemos aparecer ante los clientes?</p><p class="ex">Cuota de mercado, retención, captación, satisfacción, beneficio por cliente, n.º de reclamos.</p></div>
+      <div class="box"><h3>Procesos internos</h3><p class="q">Para satisfacer a accionistas y clientes, ¿en qué procesos debemos sobresalir?</p><p class="ex">Innovación, postventa, eficiencia operacional, calidad, producción, tiempos de ciclo.</p></div>
+      <div class="box"><h3>Aprendizaje y crecimiento</h3><p class="q">Para lograr la visión, ¿cómo mantenemos la capacidad de cambiar y mejorar?</p><p class="ex">Satisfacción, retención y productividad del personal, clima laboral, competencias clave.</p></div>
+    </div>
+    <p class="note">En cada perspectiva se definen <b>objetivos, medidas, metas e iniciativas</b>, todo alrededor de la visión y la estrategia.</p>
+
+    <div class="two">
+      <div class="box">
+        <h3>Mapa estratégico: causa y efecto</h3>
+        <p>Muestra la estrategia de forma visual. Se lee <b>de abajo hacia arriba</b>:</p>
+        <div class="chain">
+          <div class="lvl"><span>Financiera</span><span><b>ROE</b></span></div>
+          <div class="up" aria-hidden="true">↑</div>
+          <div class="lvl"><span>Clientes</span><span>Entrega a tiempo → lealtad del cliente</span></div>
+          <div class="up" aria-hidden="true">↑</div>
+          <div class="lvl"><span>Procesos</span><span>Calidad y tiempo del proceso</span></div>
+          <div class="up" aria-hidden="true">↑</div>
+          <div class="lvl"><span>Aprendizaje</span><span>Habilidades de los empleados</span></div>
+        </div>
+      </div>
+      <div class="box">
+        <h3>Ejemplo: Upward Airlines</h3>
+        <p class="ex"><b>Financiera:</b> aumentar el valor para el accionista. <b>Clientes:</b> salidas frecuentes y confiables, precios muy bajos. <b>Procesos:</b> rotación rápida en tierra, rutas directas, sin extras, flota estándar, alta utilización. <b>Aprendizaje:</b> buena compensación, contratos sindicales flexibles, empleados accionistas.</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>El cuadro de mando (scorecard)</h3>
+      <p>Para cada perspectiva, una fila por objetivo con estas columnas:</p>
+      <div class="tbl"><table>
+        <tr><th>Objetivo</th><th>Variable</th><th>Indicador</th><th>Meta</th><th>Resultado</th><th>Responsable</th></tr>
+        <tr><td>Fidelizar clientes</td><td>Retención</td><td>% clientes que recompran</td><td>≥ 80%</td><td>74%</td><td>Gerencia comercial</td></tr>
+        <tr><td>Mejorar el clima</td><td>Satisfacción</td><td>Índice de clima laboral</td><td>≥ 4/5</td><td>4.2</td><td>RR.HH.</td></tr>
+      </table></div>
+      <p class="note">Filas de ejemplo para explicar el formato. Se arma en Excel, Google Sheets, PowerPoint o un software de reportes.</p>
+      <p class="ex">Ejemplo de clase (empresa eléctrica): financiera, optimizar el beneficio → EVA y ROE; clientes, garantizar la fidelidad → satisfacción e imagen corporativa; procesos, reducir pérdidas eléctricas → costo unitario e índice de accidentes; aprendizaje, buen clima → productividad del personal.</p>
+    </div>
+
+    <h3>Etapas para desarrollar un BSC</h3>
+    <div class="steps">
+      <div class="box"><h3>Preparación</h3><ol start="1"><li>Filtrar objetivos globales y específicos del plan estratégico (visión, misión); documentar indicadores e iniciativas.</li></ol></div>
+      <div class="box"><h3>Mapa estratégico</h3><ol start="2"><li>Definir perspectivas.</li><li>Priorizar objetivos globales.</li><li>Elaborar el mapa inicial de objetivos específicos.</li></ol></div>
+      <div class="box"><h3>Ajuste del mapa</h3><ol start="5"><li>Definir indicadores para cada objetivo.</li><li>Mapa de indicadores.</li><li>Validar causa-efecto y alinear iniciativas.</li></ol></div>
+      <div class="box"><h3>Alineación final</h3><ol start="8"><li>Definir metas, costear iniciativas y priorizar.</li><li>Integrar sistemas de incentivos.</li><li>Diseñar sistemas de comunicación.</li></ol></div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <h3>Errores comunes</h3>
+        <ol>
+          <li>Falta de compromiso de la alta dirección (lo delega a mandos medios).</li>
+          <li>Lo hacen unos pocos.</li>
+          <li>Solo para la alta dirección.</li>
+          <li>Proceso de desarrollo demasiado largo.</li>
+          <li>Tratarlo como un proyecto de sistemas.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Qué se logra</h3>
+        <ul>
+          <li>Gerencia integral: toma en cuenta todas las actividades estratégicas.</li>
+          <li>Calidad total.</li>
+          <li>Reingeniería: los procesos débiles se vuelven flexibles.</li>
+        </ul>
+        <p class="note">Conclusión: mantiene el énfasis en lo financiero, pero agrega los <b>impulsores</b> de esos resultados en cuatro perspectivas equilibradas.</p>
+      </div>
+    </div>
+
+    <h3>Preguntas probables</h3>
+    <div class="qa" data-topic="bsc"></div>
+  </div>
+</section>
+
+<!-- ============ CONEXIONES ============ -->
+<section id="conexiones">
+  <div class="wrap">
+    <span class="eyebrow">Para responder con más nivel</span>
+    <h2>Cómo se conectan los temas</h2>
+    <ul>
+      <li>La <b>sinergia</b> es el objetivo tanto de la diversificación como de las fusiones y adquisiciones.</li>
+      <li>Una <b>adquisición</b> es a la vez una forma de diversificar (tema 2) y un modo de entrada internacional (tema 4): Coca-Cola compró Inca Kola, Cencosud compró Wong.</li>
+      <li>La <b>integración vertical</b> aparece como poder de mercado en diversificación y como adquisición vertical en F&amp;A.</li>
+      <li>Primero se elige la estrategia de <b>negocio</b> (cómo competir) y la <b>corporativa</b> (dónde competir); el <b>BSC</b> mide y controla que se ejecuten.</li>
+      <li>La estrategia <b>global</b> se apoya en el liderazgo en costos (escala); la <b>multinacional</b>, en la diferenciación local.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ REPASAR ============ -->
+<section id="repasar">
+  <div class="wrap">
+    <span class="eyebrow">Práctica 1 · Tarjetas</span>
+    <h2>Repasar con tarjetas</h2>
+    <p>Elige un tema, lee la pregunta y <b>respóndela en voz alta</b>. Luego toca <b>Ver respuesta</b> y marca si la sabías. Las que marques como <b>Repasar</b> las puedes volver a practicar al final.</p>
+    <div class="segs" id="fcTopics" role="radiogroup" aria-label="Tema de las tarjetas"></div>
+    <div class="fc-top">
+      <label class="tog" for="fcOnlyRev"><input type="checkbox" id="fcOnlyRev"> Solo las que marqué "Repasar"</label>
+      <button type="button" id="fcShuffle">Mezclar tarjetas</button>
+    </div>
+    <div class="fc-top">
+      <span id="fcPos" style="font-weight:700;font-variant-numeric:tabular-nums">Tarjeta 1</span>
+      <div class="stats" id="fcStats" aria-live="polite"></div>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="fcBar"></i></div>
+    <div class="flash" id="fcCard" aria-live="polite"></div>
+    <div class="fc-actions" id="fcActions"></div>
+    <p class="kbd">Atajos de teclado: <kbd>Espacio</kbd> ver respuesta · <kbd>1</kbd> repasar · <kbd>2</kbd> la sé · <kbd>←</kbd> <kbd>→</kbd> moverte</p>
+  </div>
+</section>
+
+<!-- ============ SIMULADOR ============ -->
+<section id="simulador">
+  <div class="wrap">
+    <span class="eyebrow">Práctica 2 · Como en el examen</span>
+    <h2>Simulacro de PC oral</h2>
+    <p>Como en el examen: <b>2 preguntas al azar</b> de cualquier tema. Respóndelas en voz alta antes de ver la respuesta modelo y marca cómo te fue. Tus marcas se guardan solo en este navegador.</p>
+    <div class="sim-controls" id="filters"></div>
+    <div class="sim-controls">
+      <label class="tog" for="onlyRev"><input type="checkbox" id="onlyRev"> Solo las que marqué "Repasar"</label>
+      <button class="primary" id="draw" type="button">Sacar 2 preguntas</button>
+      <button id="timerBtn" type="button">Cronómetro <span class="timer" id="timer">2:00</span></button>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="progress" id="progress" aria-live="polite"></div>
+    <div><button id="reset" type="button">Borrar mis marcas</button> <span class="note" id="resetMsg"></span></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Basado en las diapositivas de las sesiones 5 a 9 del curso (USIL) y en su bibliografía: Hill, Jones y Schilling (2014), <i>Strategic Management</i>; Hitt, Ireland y Hoskisson (2011), <i>Strategic Management</i>; Kaplan y Norton, <i>Balanced Scorecard</i> y <i>Mapas estratégicos</i>.</p>
+    <p>Las respuestas modelo son una guía para hablar; dilas con tus palabras.</p>
+  </div>
+</footer>
+
+<script>
+const TOPICS = {
+  negocio:{name:"Nivel de negocio"},
+  corporativa:{name:"Corporativas"},
+  fusiones:{name:"Fusiones y adquisiciones"},
+  internacional:{name:"Internacional"},
+  bsc:{name:"Balanced Scorecard"}
+};
+
+const QA = [
+// ---- NEGOCIO
+{t:"negocio",q:"¿Qué es una estrategia a nivel de negocio y en qué se diferencia de la corporativa?",
+a:`La estrategia de negocio busca <b>mejorar la posición competitiva</b> de los productos o servicios dentro de una industria o segmento: responde <i>cómo competimos</i>. La corporativa decide <i>en qué negocios estar</i> y cómo gestionarlos. En una empresa grande hay cuatro niveles (corporativo, negocio, funcional, operacional); en una pequeña no existe el corporativo. Ejemplo: el grupo decide entrar a logística con Ransa (corporativa); Alicorp decide cómo competir en aceites (negocio).`},
+{t:"negocio",q:"Explica las estrategias genéricas de Porter.",
+a:`Se cruzan dos ejes: la <b>ventaja competitiva</b> (costos o singularidad) y el <b>alcance</b> (meta amplia o estrecha). Resultan cuatro estrategias: <b>liderazgo en costos</b>, <b>diferenciación</b>, <b>enfoque en costos</b> y <b>enfoque en diferenciación</b>. Además está el <b>proveedor de mejor costo</b>, un híbrido. La empresa debe elegir una posición clara; si no, queda "atascada en el medio", sin ventaja distinguible.`},
+{t:"negocio",q:"¿Qué es el liderazgo en costos y cuándo conviene?",
+a:`Es lograr el <b>menor costo posible frente a los rivales</b>, sin ignorar la diferenciación, con instalaciones de escala eficiente y controles de costos. Conviene cuando hay muchos compradores sensibles al precio, pocas formas de diferenciar, a los clientes no les importa la marca o los compradores tienen gran poder de negociación. Se logra haciendo más eficientes las actividades de la cadena de valor o eliminando actividades que generan costo. Riesgos: obsolescencia de equipos y olvidar las necesidades del cliente.`},
+{t:"negocio",q:"¿Qué es la estrategia de diferenciación? ¿Qué logra y qué riesgos tiene?",
+a:`Ofrecer <b>atributos únicos que muchos compradores valoran y por los que pagan</b>. Logra precio premium, más ventas unitarias y lealtad de marca. Fuentes: sabor único (Red Bull), servicio superior (Wong, Ritz-Carlton), lujo (Rolex), confiabilidad (Bosch), liderazgo tecnológico (Apple). Riesgos: atributos fáciles de copiar, que el cliente no los valore o gastar tanto que se pierda rentabilidad.`},
+{t:"negocio",q:"¿Qué es la estrategia de enfoque? ¿Cuándo es atractiva y qué riesgos tiene?",
+a:`Atiende las necesidades de <b>un segmento particular</b>: un grupo de compradores, una parte de la línea de productos o una zona geográfica, ya sea con bajo costo o con diferenciación. Es atractiva si el nicho es grande y crece, los líderes no compiten ahí, es caro para otros atenderlo y hay pocos rivales. Riesgos: que un competidor grande entre al nicho, que otro se enfoque aún más estrecho o que cambien las preferencias de los clientes.`},
+{t:"negocio",q:"¿Qué es el proveedor de mejor costo y qué significa quedar 'atascado en el medio'?",
+a:`Es un <b>híbrido de costos y diferenciación</b>: dar atributos más deseables a un precio menor que los rivales. Requiere flexibilidad estratégica: fabricación flexible, redes de información y Calidad Total. "Atascado en el medio" es cuando la empresa no logra liderazgo ni en costos ni en diferenciación: no tiene ventaja distinguible y no puede enfrentar las cinco fuerzas competitivas.`},
+{t:"negocio",q:"Explica U, P y C y cómo se crea valor.",
+a:`<b>U</b> es el valor que percibe el cliente, <b>P</b> el precio y <b>C</b> el costo unitario. U − P es el excedente del consumidor, P − C es el margen de la empresa y U − C es el valor total creado. Una empresa tiene ventaja cuando crea más valor que sus rivales: bajando C (liderazgo en costos) o aumentando U (diferenciación).`},
+{t:"negocio",q:"¿Cómo podría un restaurante reducir costos en su cadena de valor?",
+a:`<b>Compras:</b> contratos por volumen con proveedores. <b>Logística interna:</b> control de inventario para reducir mermas. <b>Operaciones:</b> carta estandarizada y cocina en línea. <b>Logística externa:</b> delivery por zonas o vía apps. <b>Infraestructura:</b> mejor financiamiento y una estructura organizacional plana. Así baja C sin descuidar lo que el cliente valora.`},
+// ---- CORPORATIVA
+{t:"corporativa",q:"¿Qué es la estrategia corporativa y cuál es su objetivo?",
+a:`Son las acciones para obtener ventaja competitiva al <b>seleccionar y administrar un grupo de negocios</b> en distintos mercados. Responde cuál es la escala y el alcance apropiados: en qué negocios estar y cómo gestionarlos. Su objetivo es la <b>sinergia</b>: que el valor del conjunto sea mayor que la suma de los negocios por separado. Ejemplo: Grupo Romero con Alicorp, Ransa y Primax.`},
+{t:"corporativa",q:"Explica la matriz de Ansoff y el riesgo de cada estrategia.",
+a:`Cruza producto (actual o nuevo) con mercado (actual o nuevo). <b>Penetración</b> (producto y mercado actuales, riesgo bajo): precios, empaque, promoción, como Coca-Cola en Navidad. <b>Desarrollo de mercado</b> (producto actual, mercado nuevo, riesgo moderado): nuevos segmentos o territorios. <b>Desarrollo de producto</b> (producto nuevo, mercado actual, riesgo medio). <b>Diversificación</b> (todo nuevo, riesgo alto), como Toyota con baterías para autos eléctricos. El riesgo sube cuanto más se aleja la empresa de lo que ya conoce.`},
+{t:"corporativa",q:"¿Qué es la diversificación y qué preguntas hay que responder antes?",
+a:`Es entrar a un <b>nuevo mercado o industria</b> donde la empresa no está. Antes hay que responder: (1) ¿la industria nueva es más atractiva que el negocio actual? y (2) ¿podemos crear ventaja ahí, es decir, qué sinergias hay entre el negocio principal y el nuevo? Si no hay sinergia, diversificar puede destruir valor.`},
+{t:"corporativa",q:"¿Cuáles son los niveles de diversificación?",
+a:`Según el porcentaje de ingresos del negocio dominante. <b>Bajo:</b> negocio único (95% o más) y negocio dominante (70% a 95%). <b>Moderado a alto:</b> relacionada restringida (menos de 70%, todos comparten producto, tecnología y distribución) y relacionada vinculada (menos de 70%, vínculos limitados). <b>Muy alto:</b> no relacionada (menos de 70%, sin vínculos). Ejemplos: Pacasmayo (bajo), Backus (moderado), Grupo Romero (muy alto).`},
+{t:"corporativa",q:"¿Cómo crea valor la diversificación relacionada y cómo la no relacionada?",
+a:`La <b>relacionada</b> crea valor con <b>economías de alcance</b> (compartir actividades o transferir competencias centrales, como personal clave y know-how) y con <b>poder de mercado</b> (competencia en puntos múltiples e integración vertical). La <b>no relacionada</b> crea valor con <b>economías financieras</b>: asignar mejor el capital interno entre negocios con distintos riesgos y reestructurar negocios. Hay razones neutrales que no crean valor: leyes antimonopolio y tributarias, bajo desempeño, futuros inciertos y reducción de riesgos.`},
+{t:"corporativa",q:"¿Qué es la integración vertical?",
+a:`Es cuando la empresa <b>produce sus propios insumos (hacia atrás)</b> o <b>controla su distribución (hacia adelante)</b>. Da poder de mercado: reduce costos, asegura insumos y controla la cadena de valor. Ejemplo hacia atrás: Toyota fabricando baterías para sus autos eléctricos. Hacia adelante: un fabricante que abre sus propias tiendas.`},
+{t:"corporativa",q:"Explica la matriz BCG.",
+a:`Clasifica las unidades de negocio según <b>participación de mercado</b> y <b>crecimiento del mercado</b>. <b>Estrella:</b> alta cuota en mercado que crece; invierte mucho, pero la curva de experiencia baja sus costos. <b>Interrogante:</b> mercado que crece pero poca cuota; necesita inversión. <b>Vaca:</b> alta cuota en mercado maduro; genera fondos para financiar estrellas e interrogantes. <b>Perro:</b> poca cuota en mercado poco atractivo; drena recursos.`},
+{t:"corporativa",q:"¿Qué relación hay entre diversificación y desempeño? ¿Qué papel tienen los gerentes?",
+a:`Es una curva en <b>U invertida</b>: el desempeño sube desde el negocio dominante hasta la diversificación relacionada (punto más alto) y cae en la no relacionada. El tamaño no garantiza la ventaja y la coordinación cuesta. El factor crítico es la <b>experiencia gerencial</b>: saber coordinar para lograr sinergias, asignar recursos, decidir qué centralizar y compensar a los gerentes de cada UEN para alinear metas.`},
+// ---- FUSIONES
+{t:"fusiones",q:"¿Cuál es la diferencia entre fusión, adquisición y adquisición hostil?",
+a:`En la <b>adquisición</b> una empresa compra la mayoría o el 100% de otra, que pasa a ser su subsidiaria (por acciones o por activos). En la <b>fusión</b> dos o más empresas combinan sus recursos en una nueva organización común, en términos relativamente iguales, como Disney y Pixar. La <b>adquisición hostil</b> es cuando la empresa objetivo no pidió ni aceptó la oferta.`},
+{t:"fusiones",q:"¿Cuáles son las razones para hacer una adquisición?",
+a:`Siete: (1) <b>mayor poder de mercado</b> (horizontal, vertical o relacionada); (2) <b>superar barreras de entrada</b>, incluso en otros países; (3) <b>menor costo y más rapidez</b> para lanzar productos; (4) <b>menor riesgo</b> que desarrollarlos internamente; (5) <b>mayor diversificación</b>; (6) <b>reconfigurar el alcance competitivo</b>; (7) <b>aprender nuevas capacidades</b>. Ejemplo: Cencosud compró Wong para entrar rápido al Perú.`},
+{t:"fusiones",q:"¿Qué son las adquisiciones horizontales, verticales y relacionadas?",
+a:`<b>Horizontal:</b> comprar a un competidor de la misma industria; aprovecha sinergias de costos e ingresos. <b>Vertical:</b> comprar a un proveedor o distribuidor; la empresa controla más partes de la cadena de valor. <b>Relacionada:</b> comprar una empresa con relación operativa o de negocio directa, como una que vende servidores comprando otra que vende discos de almacenamiento. Las tres buscan más poder de mercado.`},
+{t:"fusiones",q:"¿Qué es la sinergia en una adquisición y cómo se calcula?",
+a:`Es el valor adicional que se crea al combinar las empresas: <b>Sinergia = V<sub>AB</sub> − (V<sub>A</sub> + V<sub>B</sub>)</b>. Se estima como el valor presente de los flujos de caja adicionales. La compra tiene sentido si ese valor presente supera el precio pagado. Sinergias de costos: escala, mejor gestión, financiamiento barato, menos personal. Sinergias de ingresos: usar los canales del otro y una oferta combinada.`},
+{t:"fusiones",q:"¿Qué es el due diligence y qué revisarías al comprar un hotel?",
+a:`Es la <b>revisión rigurosa de la empresa objetivo</b> antes de comprar, precedida de un acuerdo de confidencialidad. En un hotel revisaría: estados financieros, deudas y flujos; aspectos legales (licencias, títulos, juicios); tributarios; laborales (planilla, sindicato, clima); operativos (estado de instalaciones, ocupación); comerciales (reputación, contratos con agencias) y sistemas de reservas. Así se evita pagar de más o comprar problemas ocultos.`},
+{t:"fusiones",q:"¿Por qué fracasan muchas adquisiciones?",
+a:`Por: (1) <b>dificultades de integración</b>, sobre todo choque de culturas y sistemas; (2) <b>evaluar mal al objetivo</b>; (3) <b>deuda grande o extraordinaria</b>, que daña el flujo de caja; (4) <b>no lograr la sinergia</b>; (5) <b>diversificación exagerada</b>; (6) <b>gerentes demasiado enfocados</b> en adquirir y no en el negocio; (7) <b>tamaño excesivo</b> que genera burocracia.`},
+{t:"fusiones",q:"¿Qué características tiene una adquisición efectiva?",
+a:`(1) La adquirida tiene <b>recursos complementarios</b>; (2) la compra es <b>amigable</b>; (3) hay un <b>proceso cuidadoso de selección y due diligence</b>; (4) el comprador tiene <b>holgura financiera</b>; (5) la deuda queda <b>entre baja y moderada</b>; (6) hay <b>énfasis sostenido en I+D e innovación</b>; (7) el comprador es <b>flexible y maneja bien el cambio</b>. Resultado: integración rápida, menor costo y sinergias reales.`},
+{t:"fusiones",q:"¿Qué es la reestructuración? Explica downsizing, downscoping y LBO.",
+a:`Es cambiar el conjunto de negocios o la estructura financiera. <b>Downsizing:</b> reducir tamaño con despidos o cierres; baja costos laborales, pero pierde capital humano y suele dar bajo desempeño. <b>Downscoping:</b> eliminar negocios no relacionados al core (desinversión o spin-off); baja la deuda, mejora los controles y da alto desempeño. <b>LBO:</b> un grupo pequeño compra la empresa con mucha deuda y la privatiza; si son los gerentes, es un MBO. Tiene alto riesgo, pero puede dar alto desempeño.`},
+{t:"fusiones",q:"¿Qué variables considerarías para decidir comprar una empresa?",
+a:`Los estados financieros y el ROI del objetivo, su reputación, cadena de suministro, posición de mercado y marca, perspectivas, deuda, clima laboral, aspectos legales, las sinergias potenciales, el crecimiento del mercado y el <b>precio</b>. En el caso Wong, el dueño debe comparar la oferta de Cencosud con el valor presente de los flujos futuros de Wong y con el riesgo de competir contra un gigante regional.`},
+// ---- INTERNACIONAL
+{t:"internacional",q:"¿Qué es la estrategia internacional y qué oportunidades ofrece?",
+a:`Es la estrategia que la empresa usa para <b>vender sus bienes y servicios fuera de su mercado interno</b>. Oportunidades: mercado más grande, mejor rendimiento sobre la inversión (recuperar inversión en I+D), economías de escala y aprendizaje, ventajas de ubicación (mano de obra y recursos baratos) y menor riesgo por tener una base más amplia. Ejemplo: Perú es el primer exportador mundial de arándanos.`},
+{t:"internacional",q:"Explica las cuatro estrategias internacionales.",
+a:`Se ubican según la <b>necesidad de integración global</b> y la <b>necesidad de respuesta local</b>. <b>Doméstica o internacional</b> (poca y poca): replica el modelo de casa y exporta. <b>Global</b> (mucha integración, poca respuesta local): productos estandarizados, decide la matriz. <b>Multinacional</b> (poca integración, mucha respuesta local): cada país adapta. <b>Transnacional</b> (mucha y mucha): eficiencia global con adaptación local, como Toyota o IKEA.`},
+{t:"internacional",q:"¿Cuál es la diferencia entre la estrategia global, la multinacional y la transnacional?",
+a:`La <b>multinacional</b> descentraliza las decisiones en cada país y adapta los productos: "piensa local, actúa local". La <b>global</b> centraliza en la oficina matriz y vende productos estandarizados para lograr economías de escala: "piensa global, actúa global"; tiene menos riesgo pero responde menos a lo local. La <b>transnacional</b> busca ambas cosas: "piensa global, actúa local". IKEA tiene el 90% de su línea igual en todo el mundo, pero ajusta algunos muebles y sus catálogos.`},
+{t:"internacional",q:"¿Cuáles son los modos de entrada a un mercado internacional?",
+a:`De menor a mayor compromiso: <b>exportación</b> (costo alto por flete y aranceles, poco control, buena para pymes); <b>licenciamiento</b> (bajo costo y riesgo, pero poco control y bajo rendimiento); <b>alianzas estratégicas</b> (costos, recursos y riesgos compartidos, con problemas de integración); <b>adquisiciones</b> (acceso rápido pero caro y complejo, como Coca-Cola con Inca Kola); <b>subsidiaria nueva de propiedad total</b> (cara, lenta y riesgosa, pero con control máximo y rendimientos potencialmente superiores).`},
+{t:"internacional",q:"Compara la exportación con el licenciamiento.",
+a:`En la <b>exportación</b> la empresa produce en casa y vende afuera: necesita su propia distribución, paga flete y aranceles, controla poco la comercialización y depende del tipo de cambio; es buena para empresas pequeñas. En el <b>licenciamiento</b> una empresa extranjera compra el derecho de fabricar y vender el producto; ella asume la inversión y paga una regalía por unidad. El riesgo es que el licenciatario aprenda el know-how y luego compita.`},
+{t:"internacional",q:"¿Qué riesgos tiene la estrategia internacional?",
+a:`<b>Riesgos políticos:</b> inestabilidad del gobierno o conflictos que ponen en riesgo las inversiones. <b>Riesgos económicos:</b> afectan la propiedad intelectual y la inversión directa, e incluyen el <b>riesgo de tipo de cambio</b>. También existe la <b>desventaja de ser extranjero</b>, explicada por cuatro distancias: cultural, administrativa, geográfica y económica.`},
+{t:"internacional",q:"¿Qué es el diamante de Porter?",
+a:`Explica por qué un país tiene ventaja en ciertas industrias con cuatro determinantes: <b>factores de producción</b>, <b>condiciones de la demanda</b>, <b>industrias relacionadas y de apoyo</b>, y <b>estrategia, estructura y rivalidad</b> de las empresas. Ejemplo: el Perú en arándanos tiene clima y tierras (factores), demanda en contraestación del hemisferio norte y una industria agroexportadora de apoyo.`},
+{t:"internacional",q:"¿Qué debe considerar una empresa para exportar? Usa el caso de los arándanos.",
+a:`Flete, aranceles, logística, normas sanitarias, documentos (certificado de origen, conocimiento de embarque), precio, riesgos legales, vida del producto, embalaje, marca, forma de pago, demanda, garantías y seguros. En arándanos: detectar la demanda, evaluar capacidades, cumplir requisitos fitosanitarios, elegir mercados, asegurar la cadena de frío y ampliar mercados. Así Perú llegó a US$ 2,270 millones en 2024.`},
+// ---- BSC
+{t:"bsc",q:"¿Qué es el Balanced Scorecard y por qué surge?",
+a:`Es un marco de Kaplan y Norton que <b>traduce la visión y la estrategia en un conjunto coherente de indicadores</b> para controlar su ejecución. Surge porque los sistemas tradicionales miden solo lo financiero, que refleja el pasado. El caso Xerox lo muestra: era rentable pero ignoraba clientes y procesos. El BSC mantiene lo financiero y agrega sus impulsores en cuatro perspectivas.`},
+{t:"bsc",q:"¿Cuáles son las cuatro perspectivas del BSC?",
+a:`<b>Financiera:</b> ¿cómo nos ven los accionistas? (ROE, EVA). <b>Clientes:</b> ¿cómo nos ven los clientes? (satisfacción, retención, cuota). <b>Procesos internos:</b> ¿en qué procesos debemos sobresalir? (calidad, tiempos de ciclo). <b>Aprendizaje y crecimiento:</b> ¿cómo seguimos mejorando? (clima, productividad y competencias del personal). En cada una se definen objetivos, medidas, metas e iniciativas.`},
+{t:"bsc",q:"¿Qué es un mapa estratégico?",
+a:`Es la representación <b>visual y concisa de la estrategia</b> que une los objetivos de las cuatro perspectivas con <b>relaciones de causa y efecto</b>, de abajo hacia arriba. Ejemplo: mejores habilidades del personal → mejor calidad y tiempo de proceso → entregas a tiempo → lealtad del cliente → mayor ROE. Otro ejemplo es Upward Airlines: personal bien pagado → rotación rápida en tierra → precios bajos y salidas confiables → valor para el accionista.`},
+{t:"bsc",q:"¿Qué contiene el cuadro de mando (scorecard)?",
+a:`Para cada perspectiva, una tabla con <b>objetivo, variable, indicador, meta, resultado y responsable</b>. Por ejemplo, en clientes: objetivo "fidelizar clientes", indicador "% de clientes que recompran", meta 80%, responsable gerencia comercial. Se puede armar en Excel, Google Sheets o un software de reportes. Sirve para controlar si se cumplen los objetivos del mapa.`},
+{t:"bsc",q:"¿Cuáles son las etapas para desarrollar un BSC?",
+a:`Cuatro fases y diez pasos. <b>Preparación:</b> (1) filtrar objetivos del plan estratégico, visión y misión. <b>Mapa estratégico:</b> (2) definir perspectivas, (3) priorizar objetivos, (4) mapa inicial. <b>Ajuste:</b> (5) indicadores por objetivo, (6) mapa de indicadores, (7) validar causa-efecto y alinear iniciativas. <b>Alineación final:</b> (8) metas, costos y prioridades, (9) incentivos, (10) comunicación.`},
+{t:"bsc",q:"¿Cuáles son los errores comunes al implementar un BSC?",
+a:`(1) Falta de compromiso de la alta dirección, que lo delega a mandos medios; (2) que lo hagan unos pocos; (3) que sea solo para la alta dirección; (4) un proceso de desarrollo demasiado largo; (5) tratarlo como un proyecto de sistemas de información. Bien hecho, el BSC da una gerencia integral, calidad total y procesos más flexibles.`},
+{t:"bsc",q:"¿El BSC crea la estrategia?",
+a:`No. El BSC <b>solo se puede crear si ya existe una estrategia</b>; es su "contenedor". La secuencia es: situación actual → visión y misión → estrategia → BSC → sistema de gestión. La estrategia se ordena en el mapa estratégico y luego se controla con el cuadro de mando. Como dice Séneca: "para el que no sabe adónde va, no hay viento favorable".`},
+{t:"bsc",q:"Da un indicador para cada perspectiva del BSC.",
+a:`<b>Financiera:</b> ROE o EVA. <b>Clientes:</b> índice de satisfacción o % de retención. <b>Procesos internos:</b> tiempo de ciclo o índice de calidad. <b>Aprendizaje y crecimiento:</b> productividad del personal o índice de clima laboral. En el ejemplo de la empresa eléctrica: EVA, imagen corporativa, pérdidas eléctricas y % de ingresos invertido en nuevas tecnologías.`},
+// ================= 50 PREGUNTAS NUEVAS =================
+// ---- NEGOCIO (10)
+{t:"negocio",q:"¿Cuáles son los niveles de estrategia en una empresa grande y en una pequeña?",
+a:`En una empresa grande hay cuatro: <b>corporativo</b> (en qué negocios estar), <b>de negocio</b> (cómo competir en cada mercado), <b>funcional</b> (marketing, finanzas, operaciones, RR.HH.) y <b>operacional</b> (el día a día). En una empresa pequeña no hay nivel corporativo porque tiene un solo negocio: solo negocio, funcional y operacional. Ejemplo: un grupo con Alicorp, Ransa y Primax tiene los cuatro niveles.`},
+{t:"negocio",q:"¿Cuáles son las dos formas de lograr una ventaja en costos?",
+a:`(1) <b>Hacer las actividades de la cadena de valor con más eficiencia</b> que los rivales, por ejemplo comprar en volumen o automatizar operaciones. (2) <b>Reconfigurar la cadena de valor</b> para eliminar o evitar actividades que generan costo, por ejemplo vender directo por internet en vez de usar intermediarios. Las dos bajan C sin descuidar lo que el cliente valora.`},
+{t:"negocio",q:"¿Qué actividades de la cadena de valor se asocian al liderazgo en costos?",
+a:`<b>Compras</b> (negociar precio y volumen), <b>logística interna</b> (menos inventario y mermas), <b>operaciones</b> (escala eficiente, estandarización), <b>infraestructura</b> (estructura simple, controles de costos), <b>recursos humanos</b> (capacitación para la productividad) y <b>desarrollo tecnológico</b> (procesos que reducen costos). La idea es buscar ahorros en cada eslabón.`},
+{t:"negocio",q:"¿Qué son los impulsores de valor en la diferenciación?",
+a:`Son el <b>conjunto de factores especialmente efectivos para crear diferenciación</b> (Porter): procesos de control de calidad, características y rendimiento del producto, servicios al cliente, I+D de producción, tecnología e innovación, calidad de los insumos, habilidad y experiencia del personal, y ventas y marketing. La empresa elige en cuáles destacar para que el cliente perciba algo único.`},
+{t:"negocio",q:"¿Cómo se usa la cadena de valor para crear diferenciación?",
+a:`Cada actividad puede aportar algo único. <b>Infraestructura:</b> sistemas de información para entender las preferencias del cliente. <b>RR.HH.:</b> capacitación superior del personal. <b>Compras:</b> insumos de la más alta calidad. <b>Operaciones:</b> respuesta rápida a las especificaciones del cliente. <b>Logística de salida:</b> entregas rápidas. <b>Marketing:</b> relaciones personales con los compradores. <b>Servicio:</b> repuestos disponibles en campo.`},
+{t:"negocio",q:"¿Qué es la flexibilidad estratégica y por qué la necesita el proveedor de mejor costo?",
+a:`Es la capacidad de <b>producir bienes diferenciados a bajo costo</b>. Se logra con tres enfoques: <b>sistemas de fabricación flexibles</b> (procesos por computadora que producen variedad con poca intervención manual, como jeans de distintas tallas), <b>redes de información</b> que conectan a la empresa con proveedores, distribuidores y clientes, y <b>Gestión de Calidad Total (TQM)</b>, un compromiso de toda la empresa con la mejora continua, liderado por la alta dirección.`},
+{t:"negocio",q:"¿A quién puede servir una estrategia de enfoque? Da ejemplos.",
+a:`A tres tipos de nicho: <b>un grupo de compradores</b> en particular (por ejemplo, jóvenes), <b>un segmento de la línea de productos</b> (pinturas para pintores profesionales) o <b>un mercado geográfico</b> (una región o ciudad). Puede competir con bajo costo (enfoque en costos) o con un producto especial (enfoque en diferenciación).`},
+{t:"negocio",q:"¿Qué estrategia genérica aplica Apple y por qué?",
+a:`<b>Diferenciación</b>. Apple se diferencia por liderazgo tecnológico, diseño, confiabilidad y su ecosistema. Eso le permite cobrar un <b>precio premium</b>, vender más unidades y tener clientes muy leales a la marca. Su riesgo es que la competencia copie las innovaciones o que el cliente deje de ver valor en pagar más.`},
+{t:"negocio",q:"Si los compradores son muy sensibles al precio y los productos son casi iguales, ¿qué estrategia elegirías?",
+a:`<b>Liderazgo en costos</b>. Cuando hay pocas formas de diferenciar y a los clientes no les importa la marca, gana quien puede vender más barato sin perder margen. Buscaría escala eficiente, compras en volumen y un control estricto de costos. Cuidaría dos riesgos: no quedarme con equipos obsoletos y no olvidar lo que el cliente sí necesita.`},
+{t:"negocio",q:"¿Qué diferencia hay entre enfoque en costos y enfoque en diferenciación?",
+a:`Ambas atienden <b>un nicho</b> (meta estrecha). El <b>enfoque en costos</b> le ofrece a ese nicho el precio más bajo, como una aerolínea low cost en una ruta regional. El <b>enfoque en diferenciación</b> le ofrece algo único por lo que paga más, como un restaurante de alta cocina. La diferencia está en la fuente de la ventaja: el costo o la singularidad.`},
+// ---- CORPORATIVA (10)
+{t:"corporativa",q:"¿Cómo se logra la penetración de mercado?",
+a:`Vendiendo <b>más de los productos actuales en los mercados actuales</b> para ganar participación. Se logra cambiando opciones de precio, agregando características menores, cambiando el empaque o destacando usos alternativos, normalmente con promoción. Ejemplo: Coca-Cola asocia su marca a la Navidad con su publicidad y vende más en esa temporada. Es la estrategia de menor riesgo de Ansoff.`},
+{t:"corporativa",q:"¿Qué es el desarrollo de mercado? Da ejemplos.",
+a:`Llevar <b>productos actuales a mercados nuevos</b>. Puede ser con <b>nuevos segmentos</b> (pañales para adultos), con <b>nuevos territorios</b> nacionales o internacionales, o con <b>nuevas aplicaciones</b> del mismo producto (motos usadas para transportar mercadería). Tiene riesgo moderado: el producto ya se conoce, pero el mercado no.`},
+{t:"corporativa",q:"¿Qué es el desarrollo de producto?",
+a:`Ofrecer <b>productos nuevos o modificados en los mercados actuales</b>. Puede hacerse con las capacidades que la empresa ya tiene o creando capacidades nuevas para responder a necesidades cambiantes del cliente. Crear capacidades toma tiempo y exige recursos financieros, operativos y de marketing. Tiene riesgo medio.`},
+{t:"corporativa",q:"¿Qué son las economías de alcance?",
+a:`Son los <b>ahorros que logra la empresa al compartir recursos y capacidades entre sus negocios</b> o al transferir competencias centrales de uno a otro. Se dan en la diversificación relacionada de dos formas: <b>actividades compartidas</b> (una misma planta, red de distribución o fuerza de ventas) y <b>transferencia de competencias centrales</b> (conocimiento técnico y administrativo, experiencia, personal clave). Ejemplo: Backus distribuye Cristal, Pilsen y Cusqueña con la misma red.`},
+{t:"corporativa",q:"¿Qué es el poder de mercado como razón para diversificar?",
+a:`Existe cuando la empresa puede <b>vender por encima del nivel de la competencia o reducir sus costos</b> más que ella. Se logra con la <b>competencia en puntos múltiples</b>, cuando empresas diversificadas compiten a la vez en varios productos o zonas y se bloquean entre sí, y con la <b>integración vertical</b>, hacia atrás (producir los insumos) o hacia adelante (controlar la distribución).`},
+{t:"corporativa",q:"¿Qué son las economías financieras?",
+a:`Son <b>ahorros por asignar mejor los recursos financieros</b>, típicos de la diversificación no relacionada. Hay dos formas: (1) <b>asignación eficiente del capital interno</b>, armando un portafolio de negocios con distintos perfiles de riesgo y moviendo el dinero hacia los más prometedores; (2) <b>reestructuración</b>: comprar empresas, mejorarlas y luego venderlas o integrarlas.`},
+{t:"corporativa",q:"¿Cuáles son las razones neutrales de la diversificación?",
+a:`Son razones que <b>no crean ni destruyen valor</b>: <b>leyes antimonopolio y tributarias</b> (por ejemplo, invertir para depreciar más y pagar menos impuestos), <b>bajo desempeño</b> del negocio actual, <b>futuros inciertos</b> (flujos de caja inseguros en un negocio maduro) y <b>reducción de riesgos</b>. Ayudan a no perder valor, pero no generan ventaja competitiva.`},
+{t:"corporativa",q:"¿Por qué Toyota comenzó a producir baterías para vehículos eléctricos?",
+a:`Porque la industria está pasando a los vehículos eléctricos y la <b>batería es el insumo más crítico y costoso</b>. Producirla es una <b>integración vertical hacia atrás</b>: asegura el suministro, baja costos, controla la tecnología y aprovecha lo que ya sabe de autos híbridos. Es diversificación relacionada que busca poder de mercado y economías de alcance.`},
+{t:"corporativa",q:"¿Cómo se han diversificado los grandes grupos peruanos?",
+a:`<b>Grupo Romero</b>: consumo masivo (Alicorp), logística (Ransa), combustibles (Primax), palma aceitera (Palmas) y etanol (Caña Brava); diversificación muy alta. <b>Grupo Gloria</b>: lácteos, cemento, azúcar y papel. <b>Grupo Brescia (Breca)</b>: minería, pesca, seguros, hoteles y pinturas. Combinan negocios relacionados y no relacionados para repartir riesgos y crecer.`},
+{t:"corporativa",q:"En la matriz BCG, ¿qué harías con cada tipo de unidad de negocio?",
+a:`<b>Estrella</b>: invertir para sostener su crecimiento. <b>Vaca</b>: mantenerla eficiente y usar sus fondos para financiar estrellas e interrogantes. <b>Interrogante</b>: decidir si invertir para ganar cuota o abandonarla. <b>Perro</b>: evaluar desinvertir o venderla, porque drena liquidez, tiempo y recursos. La idea es tener un portafolio equilibrado.`},
+// ---- FUSIONES (10)
+{t:"fusiones",q:"¿Cómo da poder de mercado una adquisición?",
+a:`El poder de mercado existe cuando la empresa <b>vende por encima de la competencia o tiene costos menores</b> en su cadena de valor, y nace de su tamaño y sus recursos. Por eso muchas adquisiciones compran a un <b>competidor</b> (horizontal), a un <b>proveedor o distribuidor</b> (vertical) o a una empresa de una industria muy relacionada, para fortalecer el mercado principal del comprador.`},
+{t:"fusiones",q:"¿Por qué adquirir para superar barreras de entrada? ¿Qué es una adquisición transfronteriza?",
+a:`Si un mercado tiene barreras altas, como economías de escala o marcas fuertes, <b>comprar una empresa ya establecida</b> da entrada directa, aunque sea caro. Cuanto más altas las barreras, más conviene adquirir. La <b>adquisición transfronteriza</b> es comprar una empresa con domicilio en otro país, justamente para superar esas barreras. Ejemplos: Cencosud compró Wong y Coca-Cola compró Inca Kola.`},
+{t:"fusiones",q:"¿Qué rol cumple el banco de inversión en una adquisición?",
+a:`Es el <b>asesor financiero principal</b>. Arma el modelo financiero de la empresa combinada (pro forma), evalúa transacciones comparables para recomendar el precio, asesora la estructura tributaria y contable, y ayuda a conseguir el capital para cerrar la compra. Trabaja junto a abogados, consultores y valuadores, porque las empresas no suelen tener esa experiencia.`},
+{t:"fusiones",q:"¿Qué es un spin-off?",
+a:`Es <b>crear una empresa independiente a partir de una división</b> de la empresa matriz, vendiendo o distribuyendo acciones nuevas. Se hace porque se espera que esa unidad <b>valga más sola</b> que dentro del grupo. Es una forma de <b>downscoping</b>: la matriz vuelve a enfocarse en su negocio principal.`},
+{t:"fusiones",q:"¿Por qué es tan difícil la integración después de una adquisición?",
+a:`Porque hay que <b>unir dos culturas corporativas distintas</b>, vincular sistemas financieros y de control diferentes, crear buenas relaciones de trabajo entre los dos equipos y resolver los problemas de la empresa comprada. Si la integración falla, no se logran las sinergias. Por eso las adquisiciones amigables y un comprador flexible integran más rápido.`},
+{t:"fusiones",q:"¿Por qué una adquisición amigable suele salir mejor que una hostil?",
+a:`En la <b>amigable</b> ambas partes colaboran: comparten información en el due diligence, la integración es más rápida y muchas veces el precio es menor. En la <b>hostil</b> la empresa objetivo no pidió la oferta, se resiste, la información es limitada y suele pagarse una prima alta, lo que hace más difícil lograr la sinergia.`},
+{t:"fusiones",q:"Caso Pfizer–Allergan: ¿cuál fue el motivo de la operación?",
+a:`Era la mayor operación farmacéutica, de unos <b>US$ 150 000 a 160 000 millones</b>, y creaba la farmacéutica más grande del mundo. El motivo clave era <b>fiscal</b>: se estructuró al revés, con Allergan (Irlanda) comprando a Pfizer, para tributar al 12.5% irlandés y no al 15–39% de EE.UU. También unía productos como Viagra y Botox. Dato extra: se canceló en 2016 por nuevas reglas de EE.UU.`},
+{t:"fusiones",q:"Wong es líder, rentable y está en expansión. Si Cencosud te ofrece US$ 700 millones, ¿venderías?",
+a:`Depende de si el precio supera el <b>valor presente de los flujos futuros</b> de Wong. A favor de vender: liquidez inmediata y no tener que competir con un gigante regional con más escala. A favor de no vender: es líder, rentable, crece y tiene clientes leales, así que su valor puede subir. Decidiría comparando la oferta con una valuación por flujo de caja descontado y con el riesgo de seguir solo.`},
+{t:"fusiones",q:"Caso Twitter: ¿por qué lo compró Elon Musk, cuánto pagó y qué amenazas tenía?",
+a:`Lo compró en 2022 por unos <b>US$ 44 000 millones</b> (US$ 54.20 por acción) y lo sacó de la bolsa. Razón declarada: hacerla una plataforma de libertad de expresión y luego una "app para todo" (hoy X). Se financió en parte con <b>mucha deuda</b>, parecido a un LBO. Amenazas: la carga de deuda, la salida de anunciantes, los despidos masivos y el posible sobreprecio.`},
+{t:"fusiones",q:"¿Cómo les fue a las fusiones y adquisiciones en el Perú en 2023?",
+a:`Hubo <b>105 operaciones</b>, 38.2% más que en 2022, pero el <b>valor cayó 30.98%</b>: de US$ 11 242 millones a US$ 7 759.8 millones (LexLatin). Hubo más operaciones pero más pequeñas, por la crisis política y económica, en un año en que la economía cayó 0.55%. A nivel mundial, el 60% de los CEOs planea al menos una adquisición en tres años (PwC).`},
+// ---- INTERNACIONAL (10)
+{t:"internacional",q:"¿Por qué es importante la estrategia internacional para los países?",
+a:`Porque permite <b>expandir mercados</b>, obtener <b>ventajas económicas del comercio</b>, conseguir <b>divisas</b> y hacer <b>crecer el PIB</b>. Ejemplo: en 2024 el Perú exportó US$ 75 916 millones (+12.4%) y tuvo un superávit comercial de US$ 23 821 millones; solo los arándanos sumaron US$ 2 270 millones.`},
+{t:"internacional",q:"¿Qué es la estrategia doméstica o de réplica del modelo local?",
+a:`La empresa ve el negocio internacional como <b>separado y secundario</b> frente al doméstico. Sale afuera solo para vender más de sus productos de casa, que están pensados para el cliente local y no se adaptan. Espera aprender poco de sus operaciones en el extranjero y suele basarse en la <b>exportación simple</b>. Tiene poca integración global y poca respuesta local.`},
+{t:"internacional",q:"¿Por qué se dice que IKEA aplica una estrategia transnacional?",
+a:`Porque combina <b>eficiencia global con adaptación local</b>. Cerca del <b>90% de su línea es idéntica</b> en más de dos docenas de países, lo que le da economías de escala. Pero modifica algunos muebles para cada país, y su marketing se diseña en la sede central y se aplica con ajustes locales, como el idioma de los catálogos.`},
+{t:"internacional",q:"Explica las economías de escala y las ventajas de ubicación en la expansión internacional.",
+a:`<b>Economías de escala y aprendizaje:</b> al vender en más países con productos estandarizados y las mismas plantas, el costo por unidad baja y la empresa aprende más rápido. <b>Ventajas de ubicación:</b> producir donde los costos son menores, con acceso a mano de obra, energía y recursos más baratos. Ambas mejoran la rentabilidad.`},
+{t:"internacional",q:"¿Qué es una alianza estratégica como modo de entrada?",
+a:`Es una asociación con otra empresa, casi siempre del <b>país anfitrión</b>, que conoce las condiciones competitivas locales. <b>Cada socio aporta conocimientos o recursos</b>. Ventajas: costos, recursos y riesgos compartidos. Desventajas: problemas de integración y posibles conflictos entre socios. Es un punto intermedio entre licenciar y comprar.`},
+{t:"internacional",q:"¿Qué es una subsidiaria nueva de propiedad total?",
+a:`Es <b>crear desde cero una operación propia</b> en otro país. Da el <b>control máximo</b> sobre la tecnología, la marca y las operaciones, y puede dar rendimientos superiores al promedio. Pero es <b>compleja, costosa, lenta y de alto riesgo</b>. Conviene cuando la empresa quiere proteger competencias muy valiosas.`},
+{t:"internacional",q:"¿Qué es la desventaja de ser extranjero?",
+a:`Es la desventaja que sufren las empresas que se concentran en los mercados globales <b>sin adaptarse a cada región</b>. Se explica por <b>cuatro distancias</b> entre países: <b>cultural</b> (idioma, costumbres), <b>administrativa</b> (leyes, instituciones), <b>geográfica</b> (lejanía, transporte) y <b>económica</b> (ingresos, costos). Cuanto mayores, más difícil es competir.`},
+{t:"internacional",q:"¿Qué es la regionalización?",
+a:`Es decidir si la empresa <b>competirá en todos o muchos mercados del mundo o se concentrará en una o varias regiones</b>, porque su ubicación afecta su competitividad estratégica. Concentrarse en una región, como Sudamérica o la Alianza del Pacífico, permite conocer mejor a los clientes y aprovechar acuerdos comerciales.`},
+{t:"internacional",q:"¿Qué modo de entrada le recomendarías a una pyme peruana que quiere internacionalizarse?",
+a:`Empezaría por la <b>exportación</b>, porque exige menos inversión y es buena para empresas pequeñas, aunque da poco control y tiene costos de flete y aranceles. Debe cuidar el tipo de cambio, los documentos y las normas sanitarias. Cuando gane experiencia, podría pasar a una <b>alianza estratégica</b> con un socio local para crecer con riesgo compartido.`},
+{t:"internacional",q:"¿Qué países lideran las exportaciones mundiales?",
+a:`En 2024 <b>China</b> lideró con unos US$ 3.51 billones, seguida de <b>Estados Unidos</b> (US$ 2.02 billones) y <b>Alemania</b> (US$ 1.688 billones); luego vienen Países Bajos y Japón. China ya era el primer exportador desde la crisis de 2008. Muestra que los países con estrategias exportadoras fuertes ganan escala y divisas.`},
+// ---- BSC (10)
+{t:"bsc",q:"¿Qué significa la ejecución de la estrategia y por qué importa?",
+a:`Significa <b>no solo fijar metas, sino llegar a ellas</b>. La ejecución es una disciplina y parte integral de la estrategia; es el trabajo principal de un líder empresarial y debe estar en el centro de la cultura de la organización. El BSC existe justamente para controlar esa ejecución con indicadores.`},
+{t:"bsc",q:"¿Qué dos elementos usa el BSC?",
+a:`El <b>mapa estratégico</b>, que muestra la estrategia de forma visual y concisa con relaciones causa-efecto entre los objetivos de las cuatro perspectivas, y el <b>cuadro de mando</b> (scorecard), la tabla con objetivos, indicadores, metas, resultados y responsables que sirve para controlar si se cumplen.`},
+{t:"bsc",q:"¿Por qué la perspectiva de aprendizaje y crecimiento es la base del BSC?",
+a:`Porque <b>impulsa a todas las demás</b>. Un personal capacitado, motivado y con buen clima mejora los procesos internos; mejores procesos generan clientes satisfechos y leales, y eso produce resultados financieros. Responde: ¿cómo mantenemos la capacidad de cambiar y mejorar? Indicadores: satisfacción, retención y productividad del personal, y clima laboral.`},
+{t:"bsc",q:"¿Qué mide la perspectiva de procesos internos?",
+a:`Mide los <b>procesos en los que la empresa debe sobresalir</b> para satisfacer a clientes y accionistas. Indicadores: innovación, servicio postventa, eficiencia operacional, métricas de calidad y de producción, y tiempos de ciclo. En el ejemplo de la empresa eléctrica: reducir pérdidas eléctricas, optimizar el mantenimiento y medir el costo unitario por actividad.`},
+{t:"bsc",q:"¿Qué son las relaciones causa-efecto en el BSC?",
+a:`Son los <b>vínculos entre los objetivos de las perspectivas</b>: lograr uno ayuda a lograr el de arriba. Ejemplo: habilidades de los empleados → mejor calidad y tiempo de proceso → entrega a tiempo → lealtad del cliente → mayor ROE. Validarlas es un paso clave (el paso 7) porque muestra si la estrategia tiene lógica.`},
+{t:"bsc",q:"Caso Xerox: ¿qué lección deja para el BSC?",
+a:`Xerox <b>era rentable</b>, pero se guiaba casi solo por <b>indicadores financieros</b>, que miran el pasado. Descuidaba aspectos clave como la satisfacción del cliente, la calidad y los procesos, y su planeamiento no se conectaba bien con la operación; así perdió terreno frente a competidores japoneses. La lección: hay que medir también los impulsores del desempeño futuro.`},
+{t:"bsc",q:"Explica el mapa estratégico de Upward Airlines.",
+a:`Es una aerolínea de bajo costo. <b>Financiera:</b> aumentar el valor para el accionista. <b>Clientes:</b> salidas frecuentes y confiables, precio comparable a otros medios y tarifas muy bajas. <b>Procesos:</b> rotación rápida en tierra, buenas ubicaciones, rutas directas, sin extras, flota estándar y alta utilización. <b>Aprendizaje:</b> buena compensación, contratos sindicales flexibles y empleados accionistas.`},
+{t:"bsc",q:"¿Qué diferencia hay entre objetivo, indicador, meta e iniciativa?",
+a:`El <b>objetivo</b> es lo que se quiere lograr ("fidelizar clientes"). El <b>indicador</b> es cómo se mide ("% de clientes que recompran"). La <b>meta</b> es el valor que se quiere alcanzar ("80% este año"). La <b>iniciativa</b> es la acción para lograrlo ("programa de puntos"). Además se asigna un <b>responsable</b>.`},
+{t:"bsc",q:"¿Qué resultados se pueden lograr con el BSC?",
+a:`Una <b>gerencia integral</b>, porque toma en cuenta todas las actividades estratégicas y no solo lo financiero; <b>calidad total</b>; y, con la <b>reingeniería</b>, convertir procesos débiles en procesos flexibles. Además alinea a toda la organización con la visión y la estrategia.`},
+{t:"bsc",q:"Arma un BSC rápido para una cafetería.",
+a:`<b>Financiera:</b> aumentar la rentabilidad → margen neto, meta 15%. <b>Clientes:</b> fidelizar → % de clientes frecuentes y calificación en reseñas. <b>Procesos:</b> atender rápido y con calidad → tiempo de espera menor a 5 minutos. <b>Aprendizaje:</b> personal capacitado → horas de capacitación y rotación del personal. Se conectan así: baristas capacitados → atención rápida → clientes leales → más ventas.`}
+];
+
+/* ---------- Estado (solo en este navegador) ---------- */
+const KEY="eg-repaso-v1";
+let marks={};
+try{ marks=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ marks={}; }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(marks)); }catch(e){} }
+
+/* ---------- Preguntas por tema ---------- */
+function stBadge(i){
+  const m=marks[i];
+  if(m==="ok") return '<span class="st ok">La sé</span>';
+  if(m==="rev") return '<span class="st rev">Repasar</span>';
+  return "";
+}
+function renderLists(){
+  document.querySelectorAll(".qa[data-topic]").forEach(box=>{
+    const t=box.dataset.topic;
+    const ids=QA.map((x,i)=>i).filter(i=>QA[i].t===t);
+    const h=box.previousElementSibling;
+    if(h&&h.tagName==="H3") h.textContent=`Preguntas probables (${ids.length})`;
+    box.innerHTML=ids.map(i=>`<details id="q${i}"><summary><span>${QA[i].q}</span>${stBadge(i)}</summary><div class="ans">${QA[i].a}</div></details>`).join("")
+      +`<button type="button" class="practice" data-practice="${t}">Practicar estas ${ids.length} con tarjetas →</button>`;
+  });
+}
+function updateBadges(){
+  QA.forEach((x,i)=>{
+    const s=document.querySelector(`#q${i} summary`); if(!s) return;
+    const old=s.querySelector(".st"); if(old) old.remove();
+    const b=stBadge(i); if(b) s.insertAdjacentHTML("beforeend",b);
+  });
+}
+function onMarksChanged(){ updateBadges(); renderProgress(); fcRenderStats(); }
+
+/* ---------- Modos de entrada ---------- */
+const MODES=[
+ ["Exportación","Costo alto (flete y aranceles), poco control. Buena para pymes; ojo con el tipo de cambio.",1],
+ ["Licenciamiento","Costo bajo, poco riesgo, escaso control, bajo rendimiento. Cobra regalías; el socio puede copiar el know-how.",2],
+ ["Alianzas estratégicas","Costos, recursos y riesgos compartidos con un socio local; problemas de integración.",3],
+ ["Adquisiciones","Acceso rápido, costo alto, negociaciones complejas. Ej.: Coca-Cola–Inca Kola, Cencosud–Wong.",4],
+ ["Subsidiaria nueva de propiedad total","Compleja, costosa, lenta y de alto riesgo, pero con control máximo y rendimientos potencialmente superiores.",5]
+];
+document.getElementById("modes").innerHTML=MODES.map(m=>`<div class="row"><div><strong>${m[0]}</strong><div class="meter" aria-label="Control ${m[2]} de 5">${[1,2,3,4,5].map(k=>`<i class="${k<=m[2]?"on":""}"></i>`).join("")}</div></div><div>${m[1]}</div></div>`).join("");
+
+/* ---------- Simulador ---------- */
+const filters=document.getElementById("filters");
+filters.innerHTML=Object.entries(TOPICS).map(([k,v])=>`<label class="tog" for="f-${k}"><input type="checkbox" id="f-${k}" value="${k}" checked> ${v.name}</label>`).join("");
+const cardsEl=document.getElementById("cards");
+let current=[];
+
+function pool(){
+  const on=[...filters.querySelectorAll("input:checked")].map(i=>i.value);
+  const only=document.getElementById("onlyRev").checked;
+  return QA.map((x,i)=>i).filter(i=>on.includes(QA[i].t)&&(!only||marks[i]==="rev"));
+}
+function draw(){
+  let p=pool();
+  if(p.length===0){
+    cardsEl.innerHTML='<div class="card"><p>No hay preguntas con esos filtros. Activa más temas o desmarca "Solo las que marqué Repasar".</p></div>';
+    current=[];return;
+  }
+  p=p.filter(i=>!current.includes(i)).length>=2?p.filter(i=>!current.includes(i)):p;
+  const a=p[Math.floor(Math.random()*p.length)];
+  let rest=p.filter(i=>i!==a);
+  const other=rest.filter(i=>QA[i].t!==QA[a].t);
+  if(other.length) rest=other;
+  const b=rest.length?rest[Math.floor(Math.random()*rest.length)]:null;
+  current=[a,b].filter(v=>v!==null);
+  renderCards();
+}
+function renderCards(){
+  cardsEl.innerHTML=current.map((i,n)=>`
+    <article class="card" data-i="${i}">
+      <span class="tag">Pregunta ${n+1} · ${TOPICS[QA[i].t].name}</span>
+      <p class="qq">${QA[i].q}</p>
+      <div class="acts">
+        <button type="button" class="show">Ver respuesta modelo</button>
+        <button type="button" class="okb" aria-pressed="${marks[i]==="ok"}">La sé</button>
+        <button type="button" class="revb" aria-pressed="${marks[i]==="rev"}">Repasar</button>
+        <a href="#q${i}" class="note" style="align-self:center">Ir al tema</a>
+      </div>
+      <div class="aa" hidden>${QA[i].a}</div>
+    </article>`).join("");
+}
+cardsEl.addEventListener("click",e=>{
+  const card=e.target.closest(".card"); if(!card) return;
+  const i=+card.dataset.i;
+  if(e.target.classList.contains("show")){
+    const aa=card.querySelector(".aa"); aa.hidden=!aa.hidden;
+    e.target.textContent=aa.hidden?"Ver respuesta modelo":"Ocultar respuesta";
+  }
+  if(e.target.classList.contains("okb")||e.target.classList.contains("revb")){
+    const v=e.target.classList.contains("okb")?"ok":"rev";
+    if(marks[i]===v) delete marks[i]; else marks[i]=v;
+    save();
+    card.querySelector(".okb").setAttribute("aria-pressed",marks[i]==="ok");
+    card.querySelector(".revb").setAttribute("aria-pressed",marks[i]==="rev");
+    onMarksChanged();
+  }
+});
+cardsEl.addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="#q"]'); if(!a) return;
+  const d=document.querySelector(a.getAttribute("href")); if(d) d.open=true;
+});
+function renderProgress(){
+  const total=QA.length, ok=QA.filter((x,i)=>marks[i]==="ok").length, rev=QA.filter((x,i)=>marks[i]==="rev").length;
+  const per=Object.entries(TOPICS).map(([k,v])=>{
+    const ids=QA.map((x,i)=>i).filter(i=>QA[i].t===k);
+    return `<span>${v.name}: ${ids.filter(i=>marks[i]==="ok").length}/${ids.length}</span>`;
+  }).join("");
+  document.getElementById("progress").innerHTML=`<span><b>La sé: ${ok}/${total}</b></span><span>Repasar: ${rev}</span>${per}`;
+}
+document.getElementById("draw").addEventListener("click",draw);
+document.getElementById("reset").addEventListener("click",()=>{
+  marks={}; save(); onMarksChanged(); renderCards(); fcRender();
+  document.getElementById("resetMsg").textContent="Marcas borradas.";
+  setTimeout(()=>{document.getElementById("resetMsg").textContent="";},2500);
+});
+
+/* Cronómetro de 2 minutos */
+let tId=null,left=120;
+const tEl=document.getElementById("timer");
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+document.getElementById("timerBtn").addEventListener("click",()=>{
+  if(tId){clearInterval(tId);tId=null;left=120;tEl.textContent=fmt(left);tEl.classList.remove("end");return;}
+  left=120;tEl.classList.remove("end");tEl.textContent=fmt(left);
+  tId=setInterval(()=>{left--;tEl.textContent=fmt(Math.max(left,0));
+    if(left<=0){clearInterval(tId);tId=null;tEl.textContent="Tiempo";tEl.classList.add("end");}
+  },1000);
+});
+
+/* ---------- Repasar con tarjetas ---------- */
+const $=id=>document.getElementById(id);
+const TORDER=Object.keys(TOPICS);
+const fc={topic:"all",onlyRev:false,order:[],pos:0,shown:false,done:false,session:{ok:0,rev:0}};
+function fcIds(){ return QA.map((x,i)=>i).filter(i=>fc.topic==="all"||QA[i].t===fc.topic); }
+function fcRenderTopics(){
+  const opts=[["all","Todos los temas"]].concat(TORDER.map((k,n)=>[k,(n+1)+". "+TOPICS[k].name]));
+  $("fcTopics").innerHTML=opts.map(([k,label])=>{
+    const c=QA.filter(x=>k==="all"||x.t===k).length;
+    return `<label class="seg" for="fct-${k}"><input type="radio" name="fct" id="fct-${k}" value="${k}" ${fc.topic===k?"checked":""}><span>${label} <small>${c}</small></span></label>`;
+  }).join("");
+}
+function fcRenderStats(){
+  const ids=fcIds();
+  const ok=ids.filter(i=>marks[i]==="ok").length, rev=ids.filter(i=>marks[i]==="rev").length;
+  $("fcStats").innerHTML=`<span class="s-ok">La sé: ${ok}</span><span class="s-rev">Repasar: ${rev}</span><span>Sin marcar: ${ids.length-ok-rev}</span>`;
+}
+function fcBuild(shuffle){
+  let ids=fcIds();
+  if(fc.onlyRev) ids=ids.filter(i=>marks[i]==="rev");
+  ids.sort((a,b)=>TORDER.indexOf(QA[a].t)-TORDER.indexOf(QA[b].t)||a-b);
+  if(shuffle){ for(let k=ids.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [ids[k],ids[j]]=[ids[j],ids[k]]; } }
+  fc.order=ids; fc.pos=0; fc.shown=false; fc.done=false; fc.session={ok:0,rev:0};
+  fcRenderStats(); fcRender();
+}
+function fcRender(){
+  const n=fc.order.length, card=$("fcCard"), act=$("fcActions");
+  $("fcPos").textContent=!n?"Sin tarjetas":fc.done?`Terminaste ${n} de ${n}`:`Tarjeta ${fc.pos+1} de ${n}`;
+  $("fcBar").style.width=n?((fc.done?n:fc.pos)/n*100)+"%":"0%";
+  card.classList.remove("shown","static");
+  if(!n){
+    card.classList.add("static");
+    card.innerHTML=`<p class="qq">No hay tarjetas con este filtro.</p><p class="note">Todavía no marcaste preguntas de este tema como "Repasar".</p>`;
+    act.className="fc-actions one";
+    act.innerHTML=`<button type="button" class="primary" data-fc="all">Ver todas las tarjetas del tema</button>`;
+    return;
+  }
+  if(fc.done){
+    card.classList.add("static");
+    card.innerHTML=`<span class="tag">Mazo terminado</span><p class="qq">¡Listo! Repasaste ${n} preguntas.</p><div class="stats"><span class="s-ok">La sabías: ${fc.session.ok}</span><span class="s-rev">Para repasar: ${fc.session.rev}</span></div>`;
+    const hasRev=fcIds().some(i=>marks[i]==="rev");
+    act.className=hasRev?"fc-actions rate":"fc-actions one";
+    act.innerHTML=`<button type="button" data-fc="again">Empezar de nuevo</button>`+(hasRev?`<button type="button" class="primary" data-fc="hard">Practicar las de "Repasar"</button>`:"");
+    return;
+  }
+  const i=fc.order[fc.pos], x=QA[i];
+  const prev=marks[i]==="ok"?" · Antes: la sabías":marks[i]==="rev"?" · Antes: para repasar":"";
+  card.classList.toggle("shown",fc.shown);
+  card.innerHTML=`<span class="tag">${TOPICS[x.t].name}${prev}</span><p class="qq">${x.q}</p>`+
+    (fc.shown?`<div class="aa">${x.a}</div><a class="note" href="#q${i}">Ver esta pregunta en el resumen del tema</a>`
+             :`<p class="hint">Respóndela en voz alta y luego toca aquí para ver la respuesta</p>`);
+  if(fc.shown){
+    act.className="fc-actions rate";
+    act.innerHTML=`<button type="button" class="big-rev" data-fc="rev">Repasar otra vez</button><button type="button" class="big-ok" data-fc="ok">La sé ✓</button>`;
+  }else{
+    act.className="fc-actions";
+    act.innerHTML=`<button type="button" data-fc="prev" ${fc.pos===0?"disabled":""}>← Atrás</button><button type="button" class="primary" data-fc="show">Ver respuesta</button><button type="button" data-fc="next">Saltar →</button>`;
+  }
+}
+function fcDo(a){
+  const n=fc.order.length;
+  const hadFocus=document.activeElement&&document.activeElement.closest&&document.activeElement.closest("#fcActions");
+  if(a==="show"){ fc.shown=true; }
+  else if(a==="next"){ fc.shown=false; if(fc.pos<n-1) fc.pos++; else fc.done=true; }
+  else if(a==="prev"){ fc.shown=false; if(fc.pos>0) fc.pos--; }
+  else if(a==="ok"||a==="rev"){
+    const i=fc.order[fc.pos]; marks[i]=a; save(); fc.session[a]++;
+    fc.shown=false; if(fc.pos<n-1) fc.pos++; else fc.done=true;
+    onMarksChanged();
+  }
+  else if(a==="again"){ fc.onlyRev=false; $("fcOnlyRev").checked=false; fcBuild(true); return; }
+  else if(a==="hard"){ fc.onlyRev=true; $("fcOnlyRev").checked=true; fcBuild(false); return; }
+  else if(a==="all"){ fc.onlyRev=false; $("fcOnlyRev").checked=false; fcBuild(false); return; }
+  fcRender();
+  if(hadFocus){ const p=$("fcActions").querySelector(".primary,.big-ok"); if(p) p.focus(); }
+}
+$("fcActions").addEventListener("click",e=>{ const b=e.target.closest("button[data-fc]"); if(b) fcDo(b.dataset.fc); });
+$("fcCard").addEventListener("click",e=>{ if(e.target.closest("a")) return; if(!fc.shown&&!fc.done&&fc.order.length) fcDo("show"); });
+$("fcTopics").addEventListener("change",e=>{ if(e.target.name==="fct"){ fc.topic=e.target.value; fcBuild(false); } });
+$("fcOnlyRev").addEventListener("change",e=>{ fc.onlyRev=e.target.checked; fcBuild(false); });
+$("fcShuffle").addEventListener("click",()=>fcBuild(true));
+document.addEventListener("keydown",e=>{
+  if(e.altKey||e.ctrlKey||e.metaKey) return;
+  const tag=e.target.tagName||"";
+  if(/INPUT|TEXTAREA|SELECT/.test(tag)) return;
+  const r=$("repasar").getBoundingClientRect();
+  if(r.bottom<120||r.top>window.innerHeight-120) return;
+  if(fc.done||!fc.order.length) return;
+  if((e.key===" "||e.key==="Enter")&&!/BUTTON|A|SUMMARY/.test(tag)){ e.preventDefault(); if(!fc.shown) fcDo("show"); }
+  else if(e.key==="ArrowRight"){ e.preventDefault(); fcDo("next"); }
+  else if(e.key==="ArrowLeft"){ e.preventDefault(); fcDo("prev"); }
+  else if(e.key==="1"&&fc.shown){ fcDo("rev"); }
+  else if(e.key==="2"&&fc.shown){ fcDo("ok"); }
+});
+/* Botones "Practicar con tarjetas" y enlaces a una pregunta */
+document.addEventListener("click",e=>{
+  const p=e.target.closest("[data-practice]");
+  if(p){
+    fc.topic=p.dataset.practice; fc.onlyRev=false; $("fcOnlyRev").checked=false;
+    fcRenderTopics(); fcBuild(false); $("repasar").scrollIntoView(); return;
+  }
+  const a=e.target.closest('a[href^="#q"]');
+  if(a){ const d=document.querySelector(a.getAttribute("href")); if(d&&d.tagName==="DETAILS") d.open=true; }
+});
+
+document.querySelectorAll("[data-total]").forEach(el=>{ el.textContent=QA.length; });
+renderLists(); renderProgress(); draw(); fcRenderTopics(); fcBuild(false);
+</script>
+</body>
+</html>
